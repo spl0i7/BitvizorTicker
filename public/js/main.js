@@ -3,13 +3,19 @@
     "use strict";
 })(jQuery);
 
-const SSE_URL = "/stream/IN";
+const SSE_URL = "/stream/";
+const HANDSHAKE_URL = "/handshake/";
+
+let bus = new Vue();
+
 Vue.component('table-component', {
     template : '#table-template',
     props : {
         data : Array,
         columns: Array,
         currencies : Array,
+        localCurrency : String,
+        countries : Array,
     },
     data: function() {
         let sortOrders = {};
@@ -55,75 +61,115 @@ Vue.component('table-component', {
         sortBy: function (key) {
             this.sortKey = key;
             this.sortOrders[key] = this.sortOrders[key] * -1
+        },
+        changeCountry: function(key){
+            bus.$emit('changeCountry', key);
         }
     }
 });
 let vueInstance = new Vue({
     el : '#tableContainer',
     data : {
-        gridColumns : ['exchange', 'buy', 'sell', 'last checked'],
+        gridColumns : ['exchange', 'buy', 'sell'],
         gridData : [],
         currencies : [],
-        currencySelected : 'ALL'
+        countries : [],
+        localCurrency: '$' ,
+        currencySelected : 'ALL',
+        sse : null
     },
     mounted : function() {
-        let gridData = this.gridData;
+        bus.$on('changeCountry', (key)=>{
+            fetch(`${HANDSHAKE_URL}currency/${key}`)
+                .then((res)=>{
+                    if (res.status !== 200) {
+                        console.log('Looks like there was a problem. Status Code: ' +
+                            response.status);
+                        return;
+                    }
+                    res.json().then((info)=>{
+                        this.localCurrency = info['localCurrency'];
+                        this.connectAPI(key);
+                    });
+                })
+                .catch((err)=> console.log('Fetch Error :-S', err));
+        });
         this.currencies.push('ALL');
-        let sse = new EventSource(SSE_URL);
-        sse.onopen = ()=> sse.onmessage = (e) => {
-            let data = JSON.parse(e.data);
-            let currentExchange = data['exchange'];
-            /*
-            *
-            *
-            * {"ZebPay":{"eth":{"buy":0,"sell":0},"btc":{"buy":0,"sell":0}}
-            * */
-            if(!currentExchange) {
-                //gridData = [];
-                for(let exchange in data){
-                    for (let currency in data[exchange]){
-
-                        let flag = true;
-                        for(let i = 0; i < this.currencies.length; i++){
-                            if(this.currencies[i] === currency.toUpperCase()) {
-                                flag = false;
-                                break;
-                            }
-                        }
-                        if(flag) this.currencies.push(currency.toUpperCase());
-
-
-
-                        gridData.push({
-                            alias: exchange,
-                            exchange : `${exchange} (${currency.toUpperCase()})`,
-                            buy : data[exchange][currency]['buy'],
-                            sell : data[exchange][currency]['sell'],
-                            lastChecked : new Date(),
-                            currency : currency
-                        })
+        fetch(HANDSHAKE_URL)
+            .then((response)=> {
+                    if (response.status !== 200) {
+                        console.log('Looks like there was a problem. Status Code: ' +
+                            response.status);
+                        return;
                     }
+                    response.json().then((handshake)=>{
+                        this.countries = handshake['countries'];
+                        this.localCurrency = handshake['localCurrency'];
+                        this.connectAPI(handshake['country']);
+                    });
                 }
-            }
-            else {
-                for(let i = 0; i < gridData.length; i++) {
-                    if(gridData[i]['alias'] === currentExchange && gridData[i]['currency'] === data['currency'] ) {
-                        console.log('match');
-                        gridData[i]['buy'] = data['price']['buy'];
-                        gridData[i]['sell'] = data['price']['sell'];
-                        gridData[i]['lastChecked'] = new Date();
-                        break;
-                    }
-                }
-
-            }
-
-        }
+            )
+            .catch((err)=> console.log('Fetch Error :-S', err));
     },
     methods : {
         selectCurrency : function(k) {
             this.currencySelected = k;
-        }
+        },
+        connectAPI : function(k){
+            if(this.sse !== null) {
+                this.sse.close();
+            }
+            this.sse = new EventSource(SSE_URL + k);
+            this.sse.onopen = ()=> this.sse.onmessage = (e) => {
+                let data = JSON.parse(e.data);
+                let currentExchange = data['exchange'];
+                /*
+                *
+                *
+                * {"ZebPay":{"eth":{"buy":0,"sell":0},"btc":{"buy":0,"sell":0}}
+                * */
+                if(!currentExchange) {
+                    this.gridData = [];
+                    for(let exchange in data){
+                        for (let currency in data[exchange]){
+
+                            let flag = true;
+                            for(let i = 0; i < this.currencies.length; i++){
+                                if(this.currencies[i] === currency.toUpperCase()) {
+                                    flag = false;
+                                    break;
+                                }
+                            }
+                            if(flag) this.currencies.push(currency.toUpperCase());
+
+
+
+                            this.gridData.push({
+                                alias: exchange,
+                                exchange : `${exchange} (${currency.toUpperCase()})`,
+                                buy : data[exchange][currency]['buy'],
+                                sell : data[exchange][currency]['sell'],
+                                currency : currency
+                            })
+                        }
+                    }
+                }
+                else {
+                    for(let i = 0; i < this.gridData.length; i++) {
+                        if(this.gridData[i]['alias'] === currentExchange && this.gridData[i]['currency'] === data['currency'] ) {
+                            console.log('match');
+                            this.gridData[i]['buy'] = data['price']['buy'];
+                            this.gridData[i]['sell'] = data['price']['sell'];
+                            break;
+                        }
+                    }
+
+                }
+
+            }
+
+        },
+
     }
 });
 

@@ -22,9 +22,13 @@
     <!--===============================================================================================-->
 </head>
 <body>
+<div class="table-title">
+    <h3>CoinScour</h3>
+</div>
+
 <script type="text/x-template" id="table-template">
     <div>
-        <div class="dropdown dropright">
+        <div class="dropdown dropright dropdown-currency">
             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownCurrency" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Select Currency
             </button>
@@ -32,51 +36,54 @@
                 <a class="dropdown-item" href="#" v-for="key in currencies" @click="filterCoin = key">{{key}}</a>
             </div>
         </div>
-
-        <div class="table">
-            <div class="row header">
-                <div class="cell" v-for="key in columns"
-                     @click="sortBy(key)"
-                     :class="{ active: sortKey == key }">
-                {{ key | capitalize }}
-                    <span :class="sortOrders[key] > 0 ? 'arrow-up' : 'arrow-down'"></span>
-                </div>
-            </div>
-            <div class="row" v-for="key in filteredData">
-                <div class="cell">{{key.exchange}}</div>
-                <div class="cell">₹ {{key.buy}}</div>
-                <div class="cell">₹ {{key.sell}}</div>
-                <div class="cell">{{key.lastChecked.toLocaleTimeString()}}</div>
+        <div class="dropdown dropright dropdown-country">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownCountry" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Select Country
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="#" v-for="key in countries" @click="changeCountry(key)">{{key}}</a>
             </div>
         </div>
+
+        <table class="table-fill">
+            <thead>
+            <tr>
+                <th class="text-left" v-for="key in columns"
+                    @click="sortBy(key)"
+                    :class="{ active: sortKey == key }">
+                    {{ key | capitalize }}
+                    <span :class="sortOrders[key] > 0 ? 'arrow-up' : 'arrow-down'"></span>
+                </th>
+            </tr>
+            </thead>
+            <tbody class="table-hover">
+            <tr v-for="key in filteredData">
+                <td class="text-left">{{key.exchange}}</td>
+                <td class="text-left">{{localCurrency}} {{Number.parseFloat(key.buy).toFixed(2)}}</td>
+                <td class="text-left">{{localCurrency}} {{Number.parseFloat(key.sell).toFixed(2)}}</td>
+            </tr>
+            </tbody>
+        </table>
     </div>
 </script>
+<div id="tableContainer">
+    <table-component
+            :local-Currency="localCurrency"
+            :countries="countries"
+            :currencies="currencies"
+            :data= "gridData"
+            :columns ="gridColumns">
+    </table-component>
 
-<div class="limiter">
-
-    <div class="container-table100">
-        <div class="wrap-table100">
-            <div id="tableContainer">
-                <table-component
-                        :currencies="currencies"
-                        :data= "gridData"
-                        :columns ="gridColumns">
-                </table-component>
-            </div>
-        </div>
-
-    </div>
 </div>
 
+<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+<script src="vendor/bootstrap/js/popper.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="vendor/select2/select2.min.js"></script>
 
-
-
-    <script src="vendor/jquery/jquery-3.2.1.min.js"></script>
-    <script src="vendor/bootstrap/js/popper.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
-    <script src="vendor/select2/select2.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
-    <script src="js/main.js"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
+<script src="js/main.js"></script>
+</body>
 </body>
 </html>

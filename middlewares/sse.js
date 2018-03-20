@@ -19,6 +19,7 @@ module.exports = {
         next();
     },
     sseConnections : {
-        IN : []
+        IN : [],
+        JP : []
     }
 };

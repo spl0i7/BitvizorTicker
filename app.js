@@ -10,7 +10,7 @@ let sseConnections = require('./middlewares/sse').sseConnections;
 
 let index = require('./routes/index');
 let stream = require('./routes/stream');
-let country = require('./routes/country');
+let country = require('./routes/handshake');
 let app = express();
 
 // view engine setup
@@ -26,7 +26,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(sse);
 app.use('/', index);
-app.use('/country', country);
+app.use('/handshake', country);
 app.use('/stream', stream);
 
 
@@ -36,7 +36,7 @@ app.use('/stream', stream);
 START THE HTTP FETCHERS
 
  */
-
+// IN
 require('./remoteapi/zebpay').start();
 require('./remoteapi/buyucoin').start();
 require('./remoteapi/coinsecure').start();
@@ -45,6 +45,13 @@ require('./remoteapi/coinome').start();
 require('./remoteapi/coindelta').start();
 require('./remoteapi/pocketbits').start();
 require('./remoteapi/bitxoxo').start();
+
+
+// JP
+require('./remoteapi/bitflyer').start();
+require('./remoteapi/coincheck').start();
+require('./remoteapi/zaif').start();
+require('./remoteapi/btcbox').start();
 
 
 
