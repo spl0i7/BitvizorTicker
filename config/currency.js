@@ -1,5 +1,14 @@
 module.exports = {
-    IN : '₹',
-    US : '$',
-    JP : '¥'
+    IN : {
+        symbol : '₹',
+        name : 'INR'
+    },
+    US : {
+        symbol : '$',
+        name : 'USD'
+    },
+    JP : {
+        symbol : '¥',
+        name : 'JPY'
+    }
 };

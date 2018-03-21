@@ -39,6 +39,7 @@ Vue.component('table-component', {
         currencies : Array,
         localCurrency : String,
         countries : Array,
+        usdRate : Number,
     },
     data: function() {
         let sortOrders = {};
@@ -120,6 +121,7 @@ let vueInstance = new Vue({
         localCurrency: '$' ,
         currencySelected : 'ALL',
         sse : null,
+        usdRate : 0.0,
     },
     mounted : function() {
         bus.$on('changeCountry', (key)=>{
@@ -148,6 +150,7 @@ let vueInstance = new Vue({
                     response.json().then((handshake)=>{
                         this.countries = handshake['countries'];
                         this.localCurrency = handshake['localCurrency'];
+                        this.usdRate = handshake['USDRate'];
                         this.connectAPI(handshake['country']);
                     });
                 }
@@ -165,6 +168,7 @@ let vueInstance = new Vue({
             this.sse = new EventSource(SSE_URL + k);
             this.sse.onopen = ()=> this.sse.onmessage = (e) => {
                 let data = JSON.parse(e.data);
+
                 let currentExchange = data['exchange'];
                 /*
                 *
@@ -172,10 +176,11 @@ let vueInstance = new Vue({
                 * {"ZebPay":{"eth":{"buy":0,"sell":0},"btc":{"buy":0,"sell":0}}
                 * */
                 if(!currentExchange) {
+
                     this.gridData = [];
                     for(let exchange in data){
                         for (let currency in data[exchange]){
-
+                            /* must not include 24 hr data as a currency */
                             let flag = true;
                             for(let i = 0; i < this.currencies.length; i++){
                                 if(this.currencies[i] === currency.toUpperCase()) {
@@ -184,15 +189,14 @@ let vueInstance = new Vue({
                                 }
                             }
                             if(flag) this.currencies.push(currency.toUpperCase());
-
-
-
                             this.gridData.push({
                                 alias: exchange,
                                 exchange : `${exchange} (${currency.toUpperCase()})`,
-                                buy : data[exchange][currency]['buy'],
-                                sell : data[exchange][currency]['sell'],
-                                currency : currency
+                                buy : Number.parseFloat(data[exchange][currency]['buy']),
+                                sell : Number.parseFloat(data[exchange][currency]['sell']),
+                                currency : currency,
+                                '24hr_buy' : Number.parseFloat(data[exchange][currency]['24hr_buy']),
+                                '24hr_sell' : Number.parseFloat(data[exchange][currency]['24hr_sell']),
                             })
                         }
                     }
@@ -201,8 +205,8 @@ let vueInstance = new Vue({
                     for(let i = 0; i < this.gridData.length; i++) {
                         if(this.gridData[i]['alias'] === currentExchange && this.gridData[i]['currency'] === data['currency'] ) {
                             console.log('match');
-                            this.gridData[i]['buy'] = data['price']['buy'];
-                            this.gridData[i]['sell'] = data['price']['sell'];
+                            this.gridData[i]['buy'] = Number.parseFloat(data['price']['buy']);
+                            this.gridData[i]['sell'] = Number.parseFloat(data['price']['sell']);
                             break;
                         }
                     }

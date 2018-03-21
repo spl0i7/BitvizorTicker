@@ -83,8 +83,14 @@
             <tbody class="table-hover">
             <tr v-for="key in filteredData">
                 <td class="text-left">{{key.exchange}}</td>
-                <td class="text-left">{{localCurrency}} {{Number.parseFloat(key.buy).toFixed(2)}}</td>
-                <td class="text-left">{{localCurrency}} {{Number.parseFloat(key.sell).toFixed(2)}}</td>
+                <td class="text-left">{{localCurrency}} {{key.buy.toFixed(2)}} <br/>
+                    <span :class="(key['24hr_buy'] - key.buy)> 0? 'text-success' : 'text-danger'">{{ ((key['24hr_buy'] - key.buy) / key['24hr_buy']).toFixed(5) }} % </span> <br/>
+                    <span>$ {{ (key.buy / usdRate).toFixed(2) }}</span>
+                </td>
+                <td class="text-left">{{localCurrency}} {{key.sell.toFixed(2)}} <br/>
+                    <span :class="(key['24hr_sell'] - key.sell)> 0 ? 'text-success' : 'text-danger'">{{((key['24hr_sell'] - key.sell) /  key['24hr_sell']).toFixed(5) }} % </span> <br/>
+                    <span>$ {{ (key.sell / usdRate).toFixed(2) }}</span>
+                </td>
             </tr>
             </tbody>
         </table>
@@ -92,6 +98,7 @@
 </script>
 <div id="tableContainer">
     <table-component
+            :usd-rate="usdRate"
             :local-Currency="localCurrency"
             :countries="countries"
             :currencies="currencies"
