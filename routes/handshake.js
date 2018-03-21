@@ -8,6 +8,11 @@ router.get('/', function(req, res) {
     let ip = (req.headers['x-forwarded-for'] || req.connection.remoteAddress || '')
                                         .split(',')[0].trim();
 
+    let ipv6Reg = new RegExp('::ffff:');
+    if(ipv6Reg.test(ip)) {
+        ip = ip.substr(ip.lastIndexOf(':') + 1);
+    }
+
     try {
         let country = geoip.lookup(ip)['country'];
     }

@@ -3,6 +3,29 @@
     "use strict";
 })(jQuery);
 
+function setCookie(cname, cvalue, exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    var expires = "expires="+ d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+
+function getCookie(cname) {
+    let name = cname + "=";
+    let decodedCookie = decodeURIComponent(document.cookie);
+    let ca = decodedCookie.split(';');
+    for(let i = 0; i <ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) === ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) === 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}
+
 const SSE_URL = "/stream/";
 const HANDSHAKE_URL = "/handshake/";
 
@@ -23,7 +46,8 @@ Vue.component('table-component', {
             sortOrders[k] = 1;
         });
         return {
-            filterCoin : 'ALL',
+            amount : 1.00000,
+            filterCoin : getCookie('filterCoin')||'ALL',
             sortKey: '',
             sortOrders: sortOrders
         }
@@ -50,6 +74,21 @@ Vue.component('table-component', {
 
             }
             return data;
+        },
+        avgCoin : function() {
+            let prices = {
+                buy : 0,
+                sell: 0
+            };
+            for(let i=0 ; i < this.filteredData.length; i++){
+                if(!isNaN(this.filteredData[i]['buy']) && !isNaN(this.filteredData[i]['sell'])) {
+                    prices['buy'] += Number.parseFloat(this.filteredData[i]['buy']);
+                    prices['sell'] += Number.parseFloat(this.filteredData[i]['sell']);
+                }
+            }
+            prices['buy'] = prices['buy'] / this.filteredData.length;
+            prices['sell'] = prices['sell'] / this.filteredData.length;
+            return prices;
         }
     },
     filters : {
@@ -64,6 +103,10 @@ Vue.component('table-component', {
         },
         changeCountry: function(key){
             bus.$emit('changeCountry', key);
+        },
+        changeCoin : function (k) {
+            this.filterCoin = k;
+            setCookie("filterCoin", k, 365);
         }
     }
 });
@@ -76,7 +119,7 @@ let vueInstance = new Vue({
         countries : [],
         localCurrency: '$' ,
         currencySelected : 'ALL',
-        sse : null
+        sse : null,
     },
     mounted : function() {
         bus.$on('changeCountry', (key)=>{

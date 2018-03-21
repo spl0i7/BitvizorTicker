@@ -41,7 +41,7 @@ require('./remoteapi/zebpay').start();
 require('./remoteapi/buyucoin').start();
 require('./remoteapi/coinsecure').start();
 require('./remoteapi/unocoin').start();
-require('./remoteapi/coinome').start();
+//require('./remoteapi/coinome').start();
 require('./remoteapi/coindelta').start();
 require('./remoteapi/pocketbits').start();
 require('./remoteapi/bitxoxo').start();

@@ -33,7 +33,7 @@
                 Select Currency
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" href="#" v-for="key in currencies" @click="filterCoin = key">{{key}}</a>
+                <a class="dropdown-item" href="#" v-for="key in currencies" @click="changeCoin(key)">{{key}}</a>
             </div>
         </div>
         <div class="dropdown dropright dropdown-country">
@@ -44,6 +44,30 @@
                 <a class="dropdown-item" href="#" v-for="key in countries" @click="changeCountry(key)">{{key}}</a>
             </div>
         </div>
+
+        <table class="table-fill" v-if="filterCoin != 'ALL'">
+            <thead>
+            <tr>
+                <th class="text-left">
+                    Amount
+                </th>
+                <th class="text-left">
+                    Avg Buy Price
+                </th>
+                <th class="text-left">
+                    Avg Sell Price
+                </th>
+            </tr>
+            </thead>
+            <tbody class="table-hover">
+                <tr>
+                    <td class="text-left"><input type="number" class="form-control" id="staticEmail2" value="1.0000" size="1" v-model="amount"></td>
+                    <td class="text-left"><span>{{Number.parseFloat(amount * avgCoin.buy).toFixed(2)}}</span></td>
+                    <td class="text-left"><span>{{Number.parseFloat(amount * avgCoin.sell).toFixed(2)}}</span></td>
+                </tr>
+            </tbody>
+        </table>
+
 
         <table class="table-fill">
             <thead>

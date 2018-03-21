@@ -20,10 +20,10 @@ module.exports = {
                 name : 'Unocoin',
                 currencies: ['btc']
             },
-            {
-                name : 'Coinome',
-                currencies : ['btc', 'ltc', 'bch', 'dash', 'dgb', 'zec', 'qtum', 'btg']
-            },
+            // {
+            //     name : 'Coinome',
+            //     currencies : ['btc', 'ltc', 'bch', 'dash', 'dgb', 'zec', 'qtum', 'btg']
+            // },
             {
                 name : 'Pocketbits',
                 currencies : ['btc']
