@@ -1,5 +1,4 @@
 let express = require('express');
-const geoip = require('geoip-lite');
 const currencydb = require('../config/currency');
 let database = require('../memorydatabase').create();
 let router = express.Router();
@@ -8,6 +7,11 @@ let oxr = require('oxr');
 let service = oxr.factory({
     appId: '86b9b766e9f941f8a6b873fd7ef61312'
 });
+let geoip = require('geoip-native-lite');
+
+// Must load data before lookups can be performed.
+geoip.loadDataSync();
+
 
 service = oxr.cache({
     method: 'latest',
@@ -37,15 +41,21 @@ router.get('/', function(req, res) {
     if(ipv6Reg.test(ip)) {
         ip = ip.substr(ip.lastIndexOf(':') + 1);
     }
+
     let country;
-    country = 'IN';
+    if(ip === '127.0.0.1' || ip === '::1') {
+        country = 'IN';
+    }
+    else {
+        country = geoip.lookup(ip).toUpperCase();
+    }
     res.json(
         {
             success : true,
             country : country,
             localCurrency :  currencydb[country]['symbol'],
             countries :  Object.keys(database),
-            USDRate : money(1.0).from('USD').to('INR')
+            USDRate : money(1.0).from('USD').to(currencydb[country]['name'])
         }
     );
 

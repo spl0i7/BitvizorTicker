@@ -10,7 +10,7 @@
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
     "express": "~4.15.5",
-    "geoip-lite": "^1.2.1",
+    "geoip-native-lite": "^0.2.0",
     "money": "^0.2.0",
     "morgan": "~1.9.0",
     "mysql": "^2.15.0",
