@@ -8,13 +8,22 @@ const RATE = 1000 * 60 * 30;
 
 function insertData(mysql, country, currency, sell, buy, exchange) {
     mysql.query({
+
         sql: 'INSERT INTO `price_cache`(`exchange`, `currency`, `country`, `sell`, `buy`, `timestamp`) VALUES(?, ?, ?, ? , ? ,NOW())',
         values: [exchange, currency, country, sell, buy]
     });
 }
 function pushData(country, currency, exchange){
+
+    let disconnectedsockIndex = [];
+
     let currentChConnections = sseConnections[country];
     for (let i = 0; i < currentChConnections.length; i++) {
+
+        if(currentChConnections[i].socket.readyState !== 'open') {
+            disconnectedsockIndex.push(i);
+        }
+
         currentChConnections[i].sseSend(
             {
                 currency: currency,
@@ -23,6 +32,14 @@ function pushData(country, currency, exchange){
             }
         );
     }
+
+    for(let i = 0; i < disconnectedsockIndex.length; i++){
+        sseConnections[country].splice(disconnectedsockIndex[i], 1);
+    }
+
+
+
+
 }
 
 module.exports = function (country, exchange, currency, sell, buy) {
@@ -63,7 +80,7 @@ module.exports = function (country, exchange, currency, sell, buy) {
                 timeout : 4000,
                 values : [country, exchange, currency]
             }, (err, results, fields)=> {
-                if (results.length === 0) {
+                if (!results || results.length === 0) {
                     memoryDatabase[country][exchange][currency]['24hr_sell'] = sell;
                     memoryDatabase[country][exchange][currency]['24hr_buy'] = buy;
                 }

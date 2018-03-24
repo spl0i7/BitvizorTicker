@@ -3,16 +3,15 @@ let request = require('request');
 let logger = require('tracer').colorConsole();
 
 const WAIT_TIME = 1000 * 30;
-const EXCHANGE = 'CoinSecure';
-const COUNTRY = 'IN';
+const EXCHANGE = 'AnxPro';
+const COUNTRY = 'HK';
 
 const urls = {
-    btc:  'https://api.coinsecure.in/v1/exchange/ticker',
+    btc:  'https://anxpro.com/api/2/BTCHKD/money/ticker'
+
 };
 
-
 logger.info(`Starting ${COUNTRY}-${EXCHANGE} with refresh time ${WAIT_TIME} ms`);
-
 
 function getHttp(url, currency) {
 
@@ -26,7 +25,7 @@ function getHttp(url, currency) {
             else {
                 try {
                     let jsonResponse = JSON.parse(body);
-                    broadcast(COUNTRY, EXCHANGE, currency, jsonResponse['message']['bid'] / 100 , jsonResponse['message']['ask'] / 100);
+                    broadcast(COUNTRY, EXCHANGE, currency, jsonResponse['data']['buy']['value'], jsonResponse['data']['sell']['value']);
                 }
                 catch(error){
                     logger.warn(`Warning : Parsing Error from COUNTRY}-${EXCHANGE}` ,error);

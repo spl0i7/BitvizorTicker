@@ -1,5 +1,7 @@
 let broadcast = require('../model');
 let request = require('request');
+let logger = require('tracer').colorConsole();
+
 const WAIT_TIME = 1000 * 30;
 const EXCHANGE = 'BtcBox';
 const COUNTRY = 'JP';
@@ -7,6 +9,8 @@ const COUNTRY = 'JP';
 const urls = {
     btc:  'https://www.btcbox.co.jp/api/v1/ticker',
 };
+
+logger.info(`Starting ${COUNTRY}-${EXCHANGE} with refresh time ${WAIT_TIME} ms`);
 
 function getHttp(url, currency) {
 
@@ -23,7 +27,7 @@ function getHttp(url, currency) {
                     broadcast(COUNTRY, EXCHANGE, currency, jsonResponse['sell'], jsonResponse['buy']);
                 }
                 catch(error){
-                    console.log(`Warning : Parsing Error from ${EXCHANGE}` ,error);
+                    logger.warn(`Warning : Parsing Error from COUNTRY}-${EXCHANGE}` ,error);
 
                 }
 

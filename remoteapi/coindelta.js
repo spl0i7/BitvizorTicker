@@ -1,5 +1,7 @@
 let broadcast = require('../model');
 let request = require('request');
+let logger = require('tracer').colorConsole();
+
 const WAIT_TIME = 1000 * 30;
 const EXCHANGE = 'CoinDelta';
 const COUNTRY = 'IN';
@@ -7,6 +9,10 @@ const COUNTRY = 'IN';
 const urls = {
     all:  'https://coindelta.com/api/v1/public/getticker/',
 };
+
+
+logger.info(`Starting ${COUNTRY}-${EXCHANGE} with refresh time ${WAIT_TIME} ms`);
+
 
 function getHttp(url) {
 
@@ -31,7 +37,7 @@ function getHttp(url) {
                     broadcast(COUNTRY, EXCHANGE, 'zrx', jsonResponse[13]['Bid'], jsonResponse[13]['Ask']);
                 }
                 catch(error){
-                    console.log(`Warning : Parsing Error from ${EXCHANGE}` ,error);
+                    logger.warn(`Warning : Parsing Error from COUNTRY}-${EXCHANGE}` ,error);
 
                 }
 

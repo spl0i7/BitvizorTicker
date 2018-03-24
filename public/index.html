@@ -62,8 +62,12 @@
             <tbody class="table-hover">
                 <tr>
                     <td class="text-left"><input type="number" class="form-control" id="staticEmail2" value="1.0000" size="1" v-model="amount"></td>
-                    <td class="text-left"><span>{{Number.parseFloat(amount * avgCoin.buy).toFixed(2)}}</span></td>
-                    <td class="text-left"><span>{{Number.parseFloat(amount * avgCoin.sell).toFixed(2)}}</span></td>
+                    <td class="text-left"><span>{{localCurrency}} {{Number.parseFloat(amount * avgCoin.buy).toFixed(2)}}</span><br/>
+                        <span>$ {{Number.parseFloat(amount * avgCoin.buy / usdRate).toFixed(2)}}</span>
+                    </td>
+                    <td class="text-left"><span>{{localCurrency}} {{Number.parseFloat(amount * avgCoin.sell).toFixed(2)}}</span><br/>
+                        <span>$ {{Number.parseFloat(amount * avgCoin.sell/ usdRate).toFixed(2)}}</span>
+                    </td>
                 </tr>
             </tbody>
         </table>
@@ -85,11 +89,11 @@
                 <td class="text-left">{{key.exchange}}</td>
                 <td class="text-left">{{localCurrency}} {{key.buy.toFixed(2)}} <br/>
                     <span :class="(key['24hr_buy'] - key.buy)> 0? 'text-success' : 'text-danger'">{{ ((key['24hr_buy'] - key.buy) / key['24hr_buy']).toFixed(5) }} % </span> <br/>
-                    <span>$ {{ (key.buy / usdRate).toFixed(2) }}</span>
+                    <span v-if="localCurrency != '$'">$ {{ (key.buy / usdRate).toFixed(2) }}</span>
                 </td>
                 <td class="text-left">{{localCurrency}} {{key.sell.toFixed(2)}} <br/>
                     <span :class="(key['24hr_sell'] - key.sell)> 0 ? 'text-success' : 'text-danger'">{{((key['24hr_sell'] - key.sell) /  key['24hr_sell']).toFixed(5) }} % </span> <br/>
-                    <span>$ {{ (key.sell / usdRate).toFixed(2) }}</span>
+                    <span v-if="localCurrency != '$'>$ {{ (key.sell / usdRate).toFixed(2) }}</span>
                 </td>
             </tr>
             </tbody>

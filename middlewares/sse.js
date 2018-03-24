@@ -20,6 +20,13 @@ module.exports = {
     },
     sseConnections : {
         IN : [],
-        JP : []
+        JP : [],
+        HK : [],
+        KR : [],
+        VN : [],
+        CA : [],
+        SE : [],
+        SG : [],
+        US : [],
     }
 };

@@ -41,10 +41,13 @@ require('./remoteapi/zebpay').start();
 require('./remoteapi/buyucoin').start();
 require('./remoteapi/coinsecure').start();
 require('./remoteapi/unocoin').start();
-//require('./remoteapi/coinome').start();
+require('./remoteapi/coinome').start();
 require('./remoteapi/coindelta').start();
 require('./remoteapi/pocketbits').start();
 require('./remoteapi/bitxoxo').start();
+require('./remoteapi/localbitcoins_in').start();
+require('./remoteapi/bitbns').start();
+require('./remoteapi/coinslab').start();
 
 
 // JP
@@ -52,10 +55,46 @@ require('./remoteapi/bitflyer').start();
 require('./remoteapi/coincheck').start();
 require('./remoteapi/zaif').start();
 require('./remoteapi/btcbox').start();
+require('./remoteapi/localbitcoins_jp').start();
+require('./remoteapi/anxpro_jp').start();
 
 
 
+//HK
+require('./remoteapi/gatecoin').start();
+require('./remoteapi/anxpro_hk').start();
+require('./remoteapi/localbitcoins_hk').start();
 
+
+//KR
+require('./remoteapi/korbit').start();
+require('./remoteapi/gopax').start();
+require('./remoteapi/localbitcoins_kr').start();
+
+//vn
+require('./remoteapi/localbitcoins_vn').start();
+
+//ca
+require('./remoteapi/coinsquare').start();
+require('./remoteapi/quadrigacx').start();
+require('./remoteapi/ezbtc').start();
+require('./remoteapi/localbitcoins_ca').start();
+
+//se
+require('./remoteapi/safello').start();
+require('./remoteapi/fybsg_se').start();
+require('./remoteapi/localbitcoins_se').start();
+
+//sg
+require('./remoteapi/fybsg_sg').start();
+require('./remoteapi/localbitcoins_sg').start();
+
+
+//us
+require('./remoteapi/coinbase').start();
+
+
+//require('./remoteapi/coinhako').start();
 
 
 // catch 404 and forward to error handler

@@ -1,12 +1,18 @@
 let broadcast = require('../model');
 let request = require('request');
-const WAIT_TIME = 1000 * 30;
-const EXCHANGE = 'Kraken';
-const COUNTRY = 'JP';
+let logger = require('tracer').colorConsole();
+
+const WAIT_TIME = 1000 * 60 * 2;
+const EXCHANGE = 'Fybsg';
+const COUNTRY = 'SG';
 
 const urls = {
-    btc:  'https://lightning.bitflyer.jp/v1/getticker',
+    btc:  'https://www.fybsg.com/api/SGD/ticker.json',
+
 };
+
+logger.info(`Starting ${COUNTRY}-${EXCHANGE} with refresh time ${WAIT_TIME} ms`);
+
 
 function getHttp(url, currency) {
 
@@ -20,10 +26,10 @@ function getHttp(url, currency) {
             else {
                 try {
                     let jsonResponse = JSON.parse(body);
-                    broadcast(COUNTRY, EXCHANGE, currency, jsonResponse['best_bid'], jsonResponse['best_ask']);
+                    broadcast(COUNTRY, EXCHANGE, currency, jsonResponse['bid'], jsonResponse['ask']);
                 }
                 catch(error){
-                    console.log(`Warning : Parsing Error from ${EXCHANGE}` ,error);
+                    logger.warn(`Warning : Parsing Error from COUNTRY}-${EXCHANGE}` ,error);
 
                 }
 

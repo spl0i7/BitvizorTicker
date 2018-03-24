@@ -2,12 +2,14 @@ let broadcast = require('../model');
 let request = require('request');
 let logger = require('tracer').colorConsole();
 
-const WAIT_TIME = 1000 * 30;
-const EXCHANGE = 'CoinSecure';
-const COUNTRY = 'IN';
+const WAIT_TIME = 1000 * 60 * 2;
+const EXCHANGE = 'CoinHako';
+const COUNTRY = 'SG';
 
 const urls = {
-    btc:  'https://api.coinsecure.in/v1/exchange/ticker',
+    btc:  'https://www.coinhako.com/api/v1/price/currency/BTCSGD',
+    eth : 'https://www.coinhako.com/api/v1/price/currency/ETHSGD',
+
 };
 
 
@@ -26,7 +28,7 @@ function getHttp(url, currency) {
             else {
                 try {
                     let jsonResponse = JSON.parse(body);
-                    broadcast(COUNTRY, EXCHANGE, currency, jsonResponse['message']['bid'] / 100 , jsonResponse['message']['ask'] / 100);
+                    broadcast(COUNTRY, EXCHANGE, currency, jsonResponse['data']['sell_price'], jsonResponse['data']['buy_price']);
                 }
                 catch(error){
                     logger.warn(`Warning : Parsing Error from COUNTRY}-${EXCHANGE}` ,error);

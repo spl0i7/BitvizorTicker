@@ -1,5 +1,7 @@
 let broadcast = require('../model');
 let request = require('request');
+let logger = require('tracer').colorConsole();
+
 const WAIT_TIME = 1000 * 30;
 const EXCHANGE = 'Coinome';
 const COUNTRY = 'IN';
@@ -7,6 +9,8 @@ const COUNTRY = 'IN';
 const urls = {
     all:  'https://www.coinome.com/api/v1/ticker.json',
 };
+
+logger.info(`Starting ${COUNTRY}-${EXCHANGE} with refresh time ${WAIT_TIME} ms`);
 
 function getHttp(url) {
 
@@ -30,7 +34,7 @@ function getHttp(url) {
                     broadcast(COUNTRY, EXCHANGE, 'btg', jsonResponse['btg-inr']['highest_bid'], jsonResponse['btg-inr']['lowest_ask']);
                 }
                 catch(error){
-                    console.log(`Warning : Parsing Error from ${EXCHANGE}` ,error);
+                    logger.warn(`Warning : Parsing Error from COUNTRY}-${EXCHANGE}` ,error);
 
                 }
 

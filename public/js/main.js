@@ -133,7 +133,9 @@ let vueInstance = new Vue({
                         return;
                     }
                     res.json().then((info)=>{
+
                         this.localCurrency = info['localCurrency'];
+                        this.usdRate = info['USDRate'];
                         this.connectAPI(key);
                     });
                 })

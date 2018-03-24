@@ -2,17 +2,16 @@ let broadcast = require('../model');
 let request = require('request');
 let logger = require('tracer').colorConsole();
 
-const WAIT_TIME = 1000 * 30;
-const EXCHANGE = 'CoinSecure';
-const COUNTRY = 'IN';
+const WAIT_TIME = 1000 * 60 * 2;
+const EXCHANGE = 'Fybsg';
+const COUNTRY = 'SE';
 
 const urls = {
-    btc:  'https://api.coinsecure.in/v1/exchange/ticker',
+    btc:  'https://www.fybse.se/api/SEK/ticker.json',
+
 };
 
-
 logger.info(`Starting ${COUNTRY}-${EXCHANGE} with refresh time ${WAIT_TIME} ms`);
-
 
 function getHttp(url, currency) {
 
@@ -26,7 +25,7 @@ function getHttp(url, currency) {
             else {
                 try {
                     let jsonResponse = JSON.parse(body);
-                    broadcast(COUNTRY, EXCHANGE, currency, jsonResponse['message']['bid'] / 100 , jsonResponse['message']['ask'] / 100);
+                    broadcast(COUNTRY, EXCHANGE, currency, jsonResponse['bid'], jsonResponse['ask']);
                 }
                 catch(error){
                     logger.warn(`Warning : Parsing Error from COUNTRY}-${EXCHANGE}` ,error);

@@ -1,5 +1,7 @@
 let broadcast = require('../model');
 let request = require('request');
+let logger = require('tracer').colorConsole();
+
 const WAIT_TIME = 1000 * 30;
 const EXCHANGE = 'BuyUCoin';
 const COUNTRY = 'IN';
@@ -38,6 +40,9 @@ const urls = {
     dcn:  'https://www.buyucoin.com/api/v1.2/currency/dcn',
 };
 
+logger.info(`Starting ${COUNTRY}-${EXCHANGE} with refresh time ${WAIT_TIME} ms`);
+
+
 function getHttp(url, currency) {
 
     request(
@@ -53,7 +58,7 @@ function getHttp(url, currency) {
                     broadcast(COUNTRY, EXCHANGE, currency, jsonResponse['data']['bid'], jsonResponse['data']['ask']);
                 }
                 catch(error){
-                    console.log(`Warning : Parsing Error from ${EXCHANGE}` ,error);
+                    logger.warn(`Warning : Parsing Error from COUNTRY}-${EXCHANGE}` ,error);
 
                 }
 

@@ -1,5 +1,7 @@
 let broadcast = require('../model');
 let request = require('request');
+let logger = require('tracer').colorConsole();
+
 const WAIT_TIME = 1000 * 30;
 const EXCHANGE = 'Zaif';
 const COUNTRY = 'JP';
@@ -9,6 +11,9 @@ const urls = {
     xem:  'https://api.zaif.jp/api/1/ticker/xem_jpy',
     mona: 'https://api.zaif.jp/api/1/ticker/mona_jpy'
 };
+
+
+logger.info(`Starting ${COUNTRY}-${EXCHANGE} with refresh time ${WAIT_TIME} ms`);
 
 function getHttp(url, currency) {
 
@@ -25,7 +30,7 @@ function getHttp(url, currency) {
                     broadcast(COUNTRY, EXCHANGE, currency, jsonResponse['bid'], jsonResponse['ask']);
                 }
                 catch(error){
-                    console.log(`Warning : Parsing Error from ${EXCHANGE}` ,error);
+                    logger.warn(`Warning : Parsing Error from COUNTRY}-${EXCHANGE}` ,error);
 
                 }
 

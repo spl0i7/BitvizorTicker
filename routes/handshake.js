@@ -4,6 +4,9 @@ let database = require('../memorydatabase').create();
 let router = express.Router();
 let money = require('money');
 let oxr = require('oxr');
+let logger = require('tracer').colorConsole();
+
+
 let service = oxr.factory({
     appId: '86b9b766e9f941f8a6b873fd7ef61312'
 });
@@ -28,7 +31,9 @@ service = oxr.cache({
 }, service);
 
 service.latest().then(function(result){
-    console.log('Updated Currency');
+
+    logger.info('Updated currency values');
+
     money.rates = result.rates;
 });
 
@@ -67,6 +72,7 @@ router.get('/currency/:country', function(req, res) {
         {
             success: true,
             localCurrency :  currencydb[country]['symbol'],
+            USDRate : money(1.0).from('USD').to(currencydb[country]['name'])
         }
     );
 

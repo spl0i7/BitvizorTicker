@@ -1,5 +1,7 @@
 let broadcast = require('../model');
 let request = require('request');
+let logger = require('tracer').colorConsole();
+
 const WAIT_TIME = 1000 * 30;
 const EXCHANGE = 'ZebPay';
 const COUNTRY = 'IN';
@@ -11,6 +13,9 @@ const urls = {
     ltc : 'https://www.zebapi.com/api/v1/market/ticker-new/ltc/inr',
     xrp : 'https://www.zebapi.com/api/v1/market/ticker-new/xrp/inr',
 };
+
+logger.info(`Starting ${COUNTRY}-${EXCHANGE} with refresh time ${WAIT_TIME} ms`);
+
 
 function getHttp(url, currency) {
 
@@ -27,7 +32,7 @@ function getHttp(url, currency) {
                broadcast(COUNTRY, EXCHANGE, currency, jsonResponse['sell'], jsonResponse['buy']);
            }
            catch(error){
-               console.log(`Warning : Parsing Error from ${EXCHANGE}` ,error);
+               logger.warn(`Warning : Parsing Error from COUNTRY}-${EXCHANGE}` ,error);
 
            }
 

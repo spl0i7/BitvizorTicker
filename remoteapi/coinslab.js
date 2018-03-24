@@ -3,11 +3,11 @@ let request = require('request');
 let logger = require('tracer').colorConsole();
 
 const WAIT_TIME = 1000 * 30;
-const EXCHANGE = 'CoinSecure';
+const EXCHANGE = 'Coinslab';
 const COUNTRY = 'IN';
 
 const urls = {
-    btc:  'https://api.coinsecure.in/v1/exchange/ticker',
+    btc:  'https://www.coinslab.com/api/v1/ticker/btc/inr',
 };
 
 
@@ -26,7 +26,7 @@ function getHttp(url, currency) {
             else {
                 try {
                     let jsonResponse = JSON.parse(body);
-                    broadcast(COUNTRY, EXCHANGE, currency, jsonResponse['message']['bid'] / 100 , jsonResponse['message']['ask'] / 100);
+                    broadcast(COUNTRY, EXCHANGE, currency, jsonResponse['sell'], jsonResponse['buy']);
                 }
                 catch(error){
                     logger.warn(`Warning : Parsing Error from COUNTRY}-${EXCHANGE}` ,error);

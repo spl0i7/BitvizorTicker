@@ -11,11 +11,13 @@
     "debug": "~2.6.9",
     "express": "~4.15.5",
     "geoip-native-lite": "^0.2.0",
+    "logger": "0.0.1",
     "money": "^0.2.0",
     "morgan": "~1.9.0",
     "mysql": "^2.15.0",
     "oxr": "^1.1.0",
     "request": "^2.85.0",
-    "serve-favicon": "~2.4.5"
+    "serve-favicon": "~2.4.5",
+    "tracer": "^0.8.12"
   }
 }

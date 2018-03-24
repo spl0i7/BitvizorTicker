@@ -1,5 +1,7 @@
 let broadcast = require('../model');
 let request = require('request');
+let logger = require('tracer').colorConsole();
+
 const WAIT_TIME = 1000 * 30;
 const EXCHANGE = 'BitXoXo';
 const COUNTRY = 'IN';
@@ -7,6 +9,10 @@ const COUNTRY = 'IN';
 const urls = {
     btc : 'https://api.bitxoxo.com/api/bitcoins/rates',
 };
+
+
+logger.info(`Starting ${COUNTRY}-${EXCHANGE} with refresh time ${WAIT_TIME} ms`);
+
 
 function getHttp(url, currency) {
 
@@ -23,7 +29,7 @@ function getHttp(url, currency) {
                broadcast(COUNTRY, EXCHANGE, currency, jsonResponse['sell'], jsonResponse['buy']);
            }
            catch(error){
-               console.log(`Warning : Parsing Error from ${EXCHANGE}` ,error);
+               logger.warn(`Warning : Parsing Error from COUNTRY}-${EXCHANGE}` ,error);
 
            }
 
