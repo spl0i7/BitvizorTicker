@@ -92,6 +92,9 @@ require('./remoteapi/localbitcoins_sg').start();
 
 //us
 require('./remoteapi/coinbase').start();
+require('./remoteapi/bitstamp').start();
+require('./remoteapi/kraken').start();
+require('./remoteapi/cryptonator').start();
 
 
 //require('./remoteapi/coinhako').start();

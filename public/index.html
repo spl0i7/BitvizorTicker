@@ -63,10 +63,10 @@
                 <tr>
                     <td class="text-left"><input type="number" class="form-control" id="staticEmail2" value="1.0000" size="1" v-model="amount"></td>
                     <td class="text-left"><span>{{localCurrency}} {{Number.parseFloat(amount * avgCoin.buy).toFixed(2)}}</span><br/>
-                        <span>$ {{Number.parseFloat(amount * avgCoin.buy / usdRate).toFixed(2)}}</span>
+                        <span v-if="localCurrency != '$'">$ {{Number.parseFloat(amount * avgCoin.buy / usdRate).toFixed(2)}}</span>
                     </td>
                     <td class="text-left"><span>{{localCurrency}} {{Number.parseFloat(amount * avgCoin.sell).toFixed(2)}}</span><br/>
-                        <span>$ {{Number.parseFloat(amount * avgCoin.sell/ usdRate).toFixed(2)}}</span>
+                        <span v-if="localCurrency != '$'">$ {{Number.parseFloat(amount * avgCoin.sell/ usdRate).toFixed(2)}}</span>
                     </td>
                 </tr>
             </tbody>
@@ -93,7 +93,7 @@
                 </td>
                 <td class="text-left">{{localCurrency}} {{key.sell.toFixed(2)}} <br/>
                     <span :class="(key['24hr_sell'] - key.sell)> 0 ? 'text-success' : 'text-danger'">{{((key['24hr_sell'] - key.sell) /  key['24hr_sell']).toFixed(5) }} % </span> <br/>
-                    <span v-if="localCurrency != '$'>$ {{ (key.sell / usdRate).toFixed(2) }}</span>
+                    <span v-if="localCurrency != '$'">$ {{ (key.sell / usdRate).toFixed(2) }}</span>
                 </td>
             </tr>
             </tbody>

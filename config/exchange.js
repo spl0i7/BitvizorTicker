@@ -184,6 +184,18 @@ module.exports = {
             {
                 name : 'CoinBase',
                 currencies : ['btc', 'ltc', 'bch', 'eth']
+            },
+            {
+                name : 'BitStamp',
+                currencies : ['btc', 'ltc', 'bch', 'eth']
+            },
+            {
+                name : 'Kraken',
+                currencies : ['usdt', 'bch', 'dash', 'eos', 'gno', 'etc', 'eth', 'ltc', 'rep', 'xbt', 'xmr', 'xrp', 'zec']
+            },
+            {
+                name : 'Cryptonator',
+                currencies : ['btc']
             }
 
         ]
