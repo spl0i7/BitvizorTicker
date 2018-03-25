@@ -8,6 +8,12 @@ body {
     text-rendering: optimizeLegibility;
 }
 
+.menu-container {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: row;
+    margin-left: 35px;
+}
 div.table-title {
     display: block;
     margin: auto;

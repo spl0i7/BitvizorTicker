@@ -37,64 +37,112 @@ START THE HTTP FETCHERS
 
  */
 // IN
-require('./remoteapi/zebpay').start();
-require('./remoteapi/buyucoin').start();
-require('./remoteapi/coinsecure').start();
-require('./remoteapi/unocoin').start();
-require('./remoteapi/coinome').start();
-require('./remoteapi/coindelta').start();
-require('./remoteapi/pocketbits').start();
-require('./remoteapi/bitxoxo').start();
-require('./remoteapi/localbitcoins_in').start();
-require('./remoteapi/bitbns').start();
-require('./remoteapi/coinslab').start();
+require('./remoteapi/india/zebpay').start();
+require('./remoteapi/india/buyucoin').start();
+require('./remoteapi/india/coinsecure').start();
+require('./remoteapi/india/unocoin').start();
+require('./remoteapi/india/coinome').start();
+require('./remoteapi/india/coindelta').start();
+require('./remoteapi/india/pocketbits').start();
+require('./remoteapi/india/bitxoxo').start();
+//require('./remoteapi/india/localbitcoins_in').start();
+require('./remoteapi/india/bitbns').start();
+require('./remoteapi/india/coinslab').start();
 
 
 // JP
-require('./remoteapi/bitflyer').start();
-require('./remoteapi/coincheck').start();
-require('./remoteapi/zaif').start();
-require('./remoteapi/btcbox').start();
-require('./remoteapi/localbitcoins_jp').start();
-require('./remoteapi/anxpro_jp').start();
+require('./remoteapi/japan/bitflyer').start();
+require('./remoteapi/japan/coincheck').start();
+require('./remoteapi/japan/zaif').start();
+require('./remoteapi/japan/btcbox').start();
+//require('./remoteapi/japan/localbitcoins_jp').start();
+require('./remoteapi/japan/anxpro_jp').start();
 
 
 
 //HK
-require('./remoteapi/gatecoin').start();
-require('./remoteapi/anxpro_hk').start();
-require('./remoteapi/localbitcoins_hk').start();
+require('./remoteapi/hongkong/gatecoin').start();
+require('./remoteapi/hongkong/anxpro_hk').start();
+//require('./remoteapi/hongkong/localbitcoins_hk').start();
 
 
 //KR
-require('./remoteapi/korbit').start();
-require('./remoteapi/gopax').start();
-require('./remoteapi/localbitcoins_kr').start();
+require('./remoteapi/korea/korbit').start();
+require('./remoteapi/korea/gopax').start();
+//require('./remoteapi/korea/localbitcoins_kr').start();
 
 //vn
-require('./remoteapi/localbitcoins_vn').start();
+//require('./remoteapi/vietnam/localbitcoins_vn').start();
 
 //ca
-require('./remoteapi/coinsquare').start();
-require('./remoteapi/quadrigacx').start();
-require('./remoteapi/ezbtc').start();
-require('./remoteapi/localbitcoins_ca').start();
+require('./remoteapi/canada/quadrigacx').start();
+require('./remoteapi/canada/ezbtc').start();
+//require('./remoteapi/canada/localbitcoins_ca').start();
 
 //se
-require('./remoteapi/safello').start();
-require('./remoteapi/fybsg_se').start();
-require('./remoteapi/localbitcoins_se').start();
+require('./remoteapi/sweden/safello').start();
+require('./remoteapi/sweden/fybsg_se').start();
+//require('./remoteapi/sweden/localbitcoins_se').start();
 
 //sg
-require('./remoteapi/fybsg_sg').start();
-require('./remoteapi/localbitcoins_sg').start();
+require('./remoteapi/singapore/fybsg_sg').start();
+//require('./remoteapi/singapore/localbitcoins_sg').start();
 
 
 //us
-require('./remoteapi/coinbase').start();
-require('./remoteapi/bitstamp').start();
-require('./remoteapi/kraken').start();
-require('./remoteapi/cryptonator').start();
+require('./remoteapi/us/coinsquare').start();
+require('./remoteapi/us/coinbase_us').start();
+require('./remoteapi/us/bitstamp').start();
+require('./remoteapi/us/kraken').start();
+//require('./remoteapi/cryptonator').start();
+require('./remoteapi/us/hibtc').start();
+require('./remoteapi/us/gemini').start();
+require('./remoteapi/us/itbit').start();
+//require('./remoteapi/us/localbitcoins_us').start();
+require('./remoteapi/us/exmo').start();
+require('./remoteapi/us/bitex').start();
+
+//gb
+require('./remoteapi/england/coinfloor').start();
+require('./remoteapi/england/coinbase_gb').start();
+//require('./remoteapi/england/localbitcoins_gb').start();
+
+//mx
+require('./remoteapi/mexico/bitso').start();
+require('./remoteapi/mexico/volabit').start();
+//require('./remoteapi/mexico/localbitcoins_mx').start();
+
+//pk
+//require('./remoteapi/pakistan/localbitcoins_pk').start();
+
+//ng
+//require('./remoteapi/nigera/localbitcoins_ng').start();
+
+
+//cl
+require('./remoteapi/chile/buda').start();
+//require('./remoteapi/chile/localbitcoins_cl').start();
+
+//br
+require('./remoteapi/brazil/mercado').start();
+require('./remoteapi/brazil/flowbtc').start();
+require('./remoteapi/brazil/bitcambio').start();
+
+//ke
+//require('./remoteapi/kenya/localbitcoins_ke').start();
+
+//th
+//require('./remoteapi/thailand/localbitcoins_th').start();
+
+
+
+//many
+require('./remoteapi/lumo').start();
+require('./remoteapi/lakebtc').start();
+require('./remoteapi/quione').start();
+require('./remoteapi/localbitcoins').start();
+
+
 
 
 //require('./remoteapi/coinhako').start();

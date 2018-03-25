@@ -27,24 +27,34 @@
 </div>
 
 <script type="text/x-template" id="table-template">
-    <div>
-        <div class="dropdown dropright dropdown-currency">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownCurrency" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Select Currency
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" href="#" v-for="key in currencies" @click="changeCoin(key)">{{key}}</a>
-            </div>
-        </div>
-        <div class="dropdown dropright dropdown-country">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownCountry" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Select Country
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" href="#" v-for="key in countries" @click="changeCountry(key)">{{key}}</a>
+
+    <div class="container">
+        <div class="jumbotron  d-flex justify-content-center">
+            <div class="container">
+                <h1>Buy and sell CryptoCurrencies near you in {{countryName}}</h1>
+                <h2>Buy Bitcoins online</h2>
+                <h3>Compare. Analyze. Trade. </h3>
             </div>
         </div>
 
+        <div class="menu-container">
+            <div class="dropdown dropright dropdown-currency">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownCurrency" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Select Currency
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="#" v-for="key in currencies" @click="changeCoin(key)">{{key}}</a>
+                </div>
+            </div>
+            <div class="dropdown dropright dropdown-country">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownCountry" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Select Country
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="#" v-for="key in countries" @click="changeCountry(key)">{{key}}</a>
+                </div>
+            </div>
+        </div>
         <table class="table-fill" v-if="filterCoin != 'ALL'">
             <thead>
             <tr>
@@ -102,6 +112,7 @@
 </script>
 <div id="tableContainer">
     <table-component
+            :country-Name="countryName"
             :usd-rate="usdRate"
             :local-Currency="localCurrency"
             :countries="countries"

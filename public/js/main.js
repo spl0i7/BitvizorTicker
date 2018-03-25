@@ -40,6 +40,7 @@ Vue.component('table-component', {
         localCurrency : String,
         countries : Array,
         usdRate : Number,
+        countryName : String
     },
     data: function() {
         let sortOrders = {};
@@ -122,6 +123,7 @@ let vueInstance = new Vue({
         currencySelected : 'ALL',
         sse : null,
         usdRate : 0.0,
+        countryName : '',
     },
     mounted : function() {
         bus.$on('changeCountry', (key)=>{
@@ -134,6 +136,7 @@ let vueInstance = new Vue({
                     }
                     res.json().then((info)=>{
 
+                        this.countryName = info['countryName'];
                         this.localCurrency = info['localCurrency'];
                         this.usdRate = info['USDRate'];
                         this.connectAPI(key);
@@ -150,6 +153,7 @@ let vueInstance = new Vue({
                         return;
                     }
                     response.json().then((handshake)=>{
+                        this.countryName = handshake['countryName'];
                         this.countries = handshake['countries'];
                         this.localCurrency = handshake['localCurrency'];
                         this.usdRate = handshake['USDRate'];

@@ -1,6 +1,7 @@
 let express = require('express');
 const currencydb = require('../config/currency');
 let database = require('../memorydatabase').create();
+let countryCode = require('../config/countrycode');
 let router = express.Router();
 let money = require('money');
 let oxr = require('oxr');
@@ -50,17 +51,26 @@ router.get('/', function(req, res) {
     let country;
     if(ip === '127.0.0.1' || ip === '::1') {
         country = 'IN';
+        // FOR DEV MODE
     }
     else {
         country = geoip.lookup(ip).toUpperCase();
+    }
+
+    let supportedCounties = Object.keys(database);
+
+    if(!supportedCounties.includes(country)) {
+        country = 'US';
+        //default to US
     }
     res.json(
         {
             success : true,
             country : country,
             localCurrency :  currencydb[country]['symbol'],
-            countries :  Object.keys(database),
-            USDRate : money(1.0).from('USD').to(currencydb[country]['name'])
+            countries :  supportedCounties,
+            USDRate : money(1.0).from('USD').to(currencydb[country]['name']),
+            countryName : countryCode[country]
         }
     );
 
@@ -71,6 +81,7 @@ router.get('/currency/:country', function(req, res) {
     res.json(
         {
             success: true,
+            countryName : countryCode[country],
             localCurrency :  currencydb[country]['symbol'],
             USDRate : money(1.0).from('USD').to(currencydb[country]['name'])
         }

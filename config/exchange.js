@@ -75,7 +75,15 @@ module.exports = {
             {
                 name : 'AnxPro',
                 currencies : ['btc']
-            }
+            },
+            {
+                name : 'Lakebtc',
+                currencies : ['btc']
+            },
+            {
+                name : 'Quione',
+                currencies : ['btc', 'bch', 'eth', 'xrp', 'qtum']
+            },
 
         ]
     },
@@ -124,10 +132,6 @@ module.exports = {
     CA : {
         exchanges : [
 
-            {
-                name : 'CoinSquare',
-                currencies : ['btc']
-            },
             {
                 name : 'Quadrigacx',
                 currencies : ['btc', 'eth', 'ltc', 'btg', 'bch']
@@ -187,18 +191,183 @@ module.exports = {
             },
             {
                 name : 'BitStamp',
-                currencies : ['btc', 'ltc', 'bch', 'eth']
+                currencies : ['btc']
             },
             {
                 name : 'Kraken',
                 currencies : ['usdt', 'bch', 'dash', 'eos', 'gno', 'etc', 'eth', 'ltc', 'rep', 'xbt', 'xmr', 'xrp', 'zec']
             },
+            // {
+            //     name : 'Cryptonator',
+            //     currencies : ['btc']
+            // },
             {
-                name : 'Cryptonator',
+                name : 'CoinSquare',
                 currencies : ['btc']
-            }
+            },
+            {
+                name : 'HiBitcoin',
+                currencies : ['btc', 'ltc', 'eth',  'zec', 'bch', 'xmr', 'dash', 'omg', 'eos']
+            },
+            {
+                name : 'Gemini',
+                currencies : ['btc', 'eth']
+            },
+            {
+                name : 'Itbit',
+                currencies : ['btc', 'eth']
+            },
+            {
+                name : 'LocalBitcoins',
+                currencies : ['btc']
+            },
+            {
+                name : 'Exmo',
+                currencies : ['btc', 'etc','eth', 'xmr', 'xrp', 'dash', 'ltc', 'zec', 'bch']
+            },
+            {
+                name : 'Lakebtc',
+                currencies : ['btc']
+            },
+            {
+                name : 'Bitex',
+                currencies : ['btc']
+            },
+            {
+                name : 'LocalBitcoins',
+                currencies : ['btc']
+            },
+            {
+                name : 'Quione',
+                currencies : ['btc', 'bch', 'eth', 'xrp', 'qtum']
+            },
+        ]
+    },
+    GB : {
+        exchanges : [
+
+            // {
+            //     name : 'CoinHako',
+            //     currencies : ['btc', 'eth']
+            // },
+            {
+                name : 'Coinfloor',
+                currencies : ['btc']
+            },
+            {
+                name : 'Lakebtc',
+                currencies : ['btc']
+            },
+            {
+                name : 'CoinBase',
+                currencies : ['btc', 'ltc', 'bch', 'eth']
+            },
+            {
+                name : 'LocalBitcoins',
+                currencies : ['btc']
+            },
 
         ]
-    }
+    },
+    MX : {
+        exchanges : [
+            {
+                name : 'Bitso',
+                currencies : ['btc', 'eth', 'xrp', 'bch', 'ltc']
+            },
+            {
+                name : 'Volabit',
+                currencies : ['btc']
+            },{
+                name : 'LocalBitcoins',
+                currencies : ['btc']
+            },
+
+        ]
+    },
+    PK : {
+        exchanges : [
+            {
+                name : 'LocalBitcoins',
+                currencies : ['btc']
+            },
+
+        ]
+    },
+    NG : {
+        exchanges : [
+            {
+                name : 'Lumo',
+                currencies : ['btc']
+            },
+            {
+                name : 'Localbitcoins',
+                currencies : ['btc']
+            },
+
+        ]
+    },
+    CL : {
+        exchanges : [
+            {
+                name : 'Buda',
+                currencies : ['btc']
+            },
+            {
+                name : 'Localbitcoins',
+                currencies : ['btc']
+            },
+
+        ]
+    },
+    BR : {
+        exchanges : [
+            {
+                name : 'Mercado',
+                currencies : ['btc', 'bch', 'ltc']
+            },
+            {
+                name : 'Flowbitcoin',
+                currencies : ['btc', 'ltc']
+            },
+            {
+                name : 'Bitcambio',
+                currencies : ['btc']
+            },
+            {
+                name : 'Localbitcoins',
+                currencies : ['btc']
+            },
+
+        ]
+    },
+    ZA : {
+        exchanges : [
+            {
+                name : 'Lumo',
+                currencies : ['btc']
+            },
+            {
+                name : 'LocalBitcoins',
+                currencies : ['btc']
+            }
+        ]
+    },
+    KE : {
+        exchanges : [
+            {
+                name : 'Localbitcoins',
+                currencies : ['btc']
+            },
+        ]
+    },
+    TH : {
+        exchanges : [
+            {
+                name : 'Localbitcoins',
+                currencies : ['btc']
+            },
+        ]
+    },
 };
 

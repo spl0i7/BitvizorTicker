@@ -28,5 +28,14 @@ module.exports = {
         SE : [],
         SG : [],
         US : [],
+        GB : [],
+        MX : [],
+        PK : [],
+        NG : [],
+        CL : [],
+        BR : [],
+        ZA : [],
+        KE : [],
+        TH : []
     }
 };

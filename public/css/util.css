@@ -1,11 +1,11 @@
 .dropdown-currency {
-    position: absolute;
     margin-left: 20px;
 }
 .dropdown-country {
-    position: absolute;
-    margin-top: 50px;
     margin-left:20px;
+}
+.jumbotron {
+background-color: rgba(233, 236, 239, 0.2);
 }
 .form-avgPrice {
     display: flex;
