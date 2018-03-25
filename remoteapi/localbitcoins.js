@@ -10,73 +10,60 @@ const COUNTRIES = ['CL','CA', 'GB', 'HK', 'IN', 'JP', 'KE', 'KR', 'MX', 'NG', 'P
 
 function getURL(country) {
     return [
-            `https://localbitcoins.com/sell-bitcoins-online/${country}/national-bank-transfer/.json`,
-            `https://localbitcoins.com/buy-bitcoins-online/${country}/national-bank-transfer/.json`
-        ];
+        `https://localbitcoins.com/sell-bitcoins-online/${country}/national-bank-transfer/.json`,
+        `https://localbitcoins.com/buy-bitcoins-online/${country}/national-bank-transfer/.json`
+    ];
 }
 
 logger.info(`Starting ${EXCHANGE} with refresh time ${WAIT_TIME} ms`);
 
-
-function getHttp(url, country) {
-
-    logger.info('%j', url);
-    request(
-        {
-            method: 'GET',
-            uri: url[0],
-            gzip: true
-        }, (err, res, body)=>{
-       if(err){ console.log (err); }
-       else {
-           try {
-               let jsonResponse_sell = JSON.parse(body);
-
-               setTimeout(()=> {
-                   request(
-                       {
-                           method: 'GET',
-                           uri: url[1],
-                           gzip: true
-                       }, (err, res, body) => {
-                           if (err) {
-                               console.log(err);
-                           }
-                           else {
-                               try {
-                                   let jsonResponse_buy = JSON.parse(body);
-                                   broadcast(country, EXCHANGE, 'btc', jsonResponse_sell['data']['ad_list'][0]['data']['temp_price'], jsonResponse_buy['data']['ad_list'][0]['data']['temp_price']);
-                               }
-                               catch (error) {
-                                   logger.warn(`Warning : Parsing Error from ${EXCHANGE} ${country}`, error);
-                               }
-                           }
-                       });
-               }, 2000);
-
-
-           }
-           catch(error){
-               logger.warn(`Warning : Parsing Error from ${EXCHANGE} ${country}` ,error);
-
-           }
-
-       }
+function doHTTP(url) {
+    console.log(url);
+    return new Promise((resolve, reject)=>{
+        request(
+            {
+                method: 'GET',
+                uri: url,
+                gzip: true
+            }, (err, res, body)=> {
+                if(err) reject(err);
+                resolve(JSON.parse(body))
+            });
     });
+
 }
 
 
-function startFetch() {
-    for(let c in COUNTRIES){
+async function getHttp(url, country) {
+        try {
+            let jsonSell = await doHTTP(url[0]);
+            let jsonBuy = await doHTTP(url[1]);
+            console.log(`${country}, ${EXCHANGE}`);
+            broadcast(country, EXCHANGE, 'btc', jsonSell['data']['ad_list'][0]['data']['temp_price'], jsonBuy['data']['ad_list'][0]['data']['temp_price']);
+        }
+        catch (err){
+            logger.warn(`${country}, ${EXCHANGE} ERROR`, err);
+        }
+}
 
+function timer(s){
+    return new Promise(r=>setTimeout(r,s * 1000));
+}
+
+async function startFetch() {
+    for(let c in COUNTRIES){
+        await timer(2);
         let currentURL = getURL(COUNTRIES[c]);
-        setTimeout(()=>{
-            getHttp(currentURL, COUNTRIES[c]);
-        }, 1000 * 60 * (Math.random() * (2 - 1) + 1) + Math.random() * 5000);
-        setInterval(()=>{
-            getHttp(currentURL, COUNTRIES[c]);
-        }, 1000 * 60 * (Math.random() * (10 - 5) + 5) + Math.random() * 1000);
+        await getHttp(currentURL, COUNTRIES[c]);
     }
+
+    setInterval(async ()=>{
+        for(let c in COUNTRIES){
+            await timer(2);
+            let currentURL = getURL(COUNTRIES[c]);
+            await getHttp(currentURL, COUNTRIES[c]);
+        }
+    }, WAIT_TIME);
 }
 
 module.exports = {

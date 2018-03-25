@@ -316,8 +316,7 @@ module.exports = {
             {
                 name : 'Localbitcoins',
                 currencies : ['btc']
-            },
-
+            }
         ]
     },
     BR : {
@@ -358,7 +357,7 @@ module.exports = {
             {
                 name : 'Localbitcoins',
                 currencies : ['btc']
-            },
+            }
         ]
     },
     TH : {
@@ -366,7 +365,7 @@ module.exports = {
             {
                 name : 'Localbitcoins',
                 currencies : ['btc']
-            },
+            }
         ]
     },
 };
