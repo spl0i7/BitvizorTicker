@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>CoinExchange</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--===============================================================================================-->
+    <link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="vendor/perfect-scrollbar/perfect-scrollbar.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="css/util.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <!--===============================================================================================-->
+</head>
+<body>
+<div class="table-title">
+    <h3>CoinScour</h3>
+</div>
+
+<script type="text/x-template" id="table-template">
+
+    <div class="container">
+
+        <table class="table-fill">
+            <thead>
+            <tr>
+                <th class="text-left" v-for="key in columns">
+                    {{ key | capitalize }}
+                </th>
+            </tr>
+            </thead>
+            <tbody class="table-hover">
+            <tr v-for="key in data">
+                <td class="text-left">{{key.name}} ({{key.symbol}})</td>
+                <td class="text-left">$ {{formatPrice(key.price_usd)}} <br/>
+                </td>
+                <td class="text-left">$  {{formatVol(key['24h_volume_usd'])}} <br/>
+                </td>
+                <td class="text-left">
+                    <span :class="(key['percent_change_24h'])> 0? 'text-success' : 'text-danger'">{{key['percent_change_24h']}} % </span>
+                    <br/>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</script>
+<div id="tableContainer">
+    <table-component
+            :data= "gridData"
+            :columns ="gridColumns">
+    </table-component>
+
+</div>
+
+<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+<script src="vendor/bootstrap/js/popper.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="vendor/select2/select2.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
+<script src="js/market.js"></script>
+</body>
+</body>
+</html>

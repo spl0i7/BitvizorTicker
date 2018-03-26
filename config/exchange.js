@@ -301,7 +301,7 @@ module.exports = {
                 currencies : ['btc']
             },
             {
-                name : 'Localbitcoins',
+                name : 'LocalBitcoins',
                 currencies : ['btc']
             },
 
@@ -314,7 +314,7 @@ module.exports = {
                 currencies : ['btc']
             },
             {
-                name : 'Localbitcoins',
+                name : 'LocalBitcoins',
                 currencies : ['btc']
             }
         ]
@@ -334,7 +334,7 @@ module.exports = {
                 currencies : ['btc']
             },
             {
-                name : 'Localbitcoins',
+                name : 'LocalBitcoins',
                 currencies : ['btc']
             },
 
@@ -355,7 +355,7 @@ module.exports = {
     KE : {
         exchanges : [
             {
-                name : 'Localbitcoins',
+                name : 'LocalBitcoins',
                 currencies : ['btc']
             }
         ]
@@ -363,8 +363,28 @@ module.exports = {
     TH : {
         exchanges : [
             {
-                name : 'Localbitcoins',
+                name : 'LocalBitcoins',
                 currencies : ['btc']
+            }
+        ]
+    },
+    RU : {
+        exchanges : [
+            {
+                name : 'LocalBitcoins',
+                currencies : ['btc']
+            }
+        ]
+    },
+    IL : {
+        exchanges : [
+            {
+                name : 'LocalBitcoins',
+                currencies : ['btc']
+            },
+            {
+                name : 'Bit2c',
+                currencies : ['btc', 'ltc', 'bch', 'btg']
             }
         ]
     },

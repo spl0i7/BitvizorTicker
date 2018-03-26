@@ -226,6 +226,52 @@ let vueInstance = new Vue({
     }
 });
 
+fetch(HANDSHAKE_URL + 'avg')
+    .then((response)=> {
+            if (response.status !== 200) {
+                console.log('Looks like there was a problem. Status Code: ' +
+                    response.status);
+                return;
+            }
+            response.json().then((handshake)=>{
+                let countryLabel = handshake.map(i=>i.country);
+                let sellPrices = handshake.map(i=>i.price_sell);
+                let buyPrices = handshake.map(i=>i.price_buy);
+
+
+
+                var data = {
+                    labels: countryLabel,
+                    series: [
+                        sellPrices,
+                        buyPrices
+                    ]
+                };
+
+                var options = {
+                    seriesBarDistance: 10
+                };
+
+                var responsiveOptions = [
+                    ['screen and (max-width: 640px)', {
+                        seriesBarDistance: 5,
+                        axisX: {
+                            labelInterpolationFnc: function (value) {
+                                return value[0];
+                            }
+                        }
+                    }]
+                ];
+
+                new Chartist.Bar('.ct-chart', data, options, responsiveOptions);
+
+
+
+            });
+        }
+    )
+    .catch((err)=> console.log('Fetch Error :-S', err));
+
 //
 // let ws = new WebSocket(WS_URL);
 // ws.onopen = ()=> ws.onmessage = priceHandler ;

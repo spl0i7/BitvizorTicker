@@ -36,6 +36,8 @@ module.exports = {
         BR : [],
         ZA : [],
         KE : [],
-        TH : []
+        TH : [],
+        RU : [],
+        IL : [],
     }
 };

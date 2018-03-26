@@ -12,6 +12,7 @@
     "express": "~4.15.5",
     "geoip-native-lite": "^0.2.0",
     "logger": "0.0.1",
+    "memory-cache": "^0.2.0",
     "money": "^0.2.0",
     "morgan": "~1.9.0",
     "mysql": "^2.15.0",

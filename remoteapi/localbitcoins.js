@@ -4,7 +4,7 @@ let logger = require('tracer').colorConsole();
 
 const WAIT_TIME = 1000 * 60 * 4;
 const EXCHANGE = 'LocalBitcoins';
-const COUNTRIES = ['CL','CA', 'GB', 'HK', 'IN', 'JP', 'KE', 'KR', 'MX', 'NG', 'PK', 'SG', 'SE', 'TH', 'US', 'VN'];
+const COUNTRIES = ['CL','CA', 'GB', 'HK', 'IN', 'RU', 'IL', 'JP', 'KE', 'KR', 'MX', 'NG', 'PK', 'SG', 'SE', 'TH', 'US', 'VN'];
 
 
 
@@ -18,7 +18,6 @@ function getURL(country) {
 logger.info(`Starting ${EXCHANGE} with refresh time ${WAIT_TIME} ms`);
 
 function doHTTP(url) {
-    console.log(url);
     return new Promise((resolve, reject)=>{
         request(
             {
@@ -38,7 +37,6 @@ async function getHttp(url, country) {
         try {
             let jsonSell = await doHTTP(url[0]);
             let jsonBuy = await doHTTP(url[1]);
-            console.log(`${country}, ${EXCHANGE}`);
             broadcast(country, EXCHANGE, 'btc', jsonSell['data']['ad_list'][0]['data']['temp_price'], jsonBuy['data']['ad_list'][0]['data']['temp_price']);
         }
         catch (err){

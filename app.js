@@ -134,7 +134,8 @@ require('./remoteapi/brazil/bitcambio').start();
 //th
 //require('./remoteapi/thailand/localbitcoins_th').start();
 
-
+//IL
+require('./remoteapi/israel/bit2c').start();
 
 //many
 require('./remoteapi/lumo').start();

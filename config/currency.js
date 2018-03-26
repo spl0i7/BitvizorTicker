@@ -72,8 +72,12 @@ module.exports = {
         name : 'KES'
     } ,
     TH : {
-        symbol : '฿.',
+        symbol : '฿',
         name : 'THB'
+    },
+    RU : {
+        symbol : '₽',
+        name : 'RUB'
     }
 
 };
