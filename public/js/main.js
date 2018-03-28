@@ -82,14 +82,16 @@ Vue.component('table-component', {
                 buy : 0,
                 sell: 0
             };
+            let length = 0;
             for(let i=0 ; i < this.filteredData.length; i++){
                 if(!isNaN(this.filteredData[i]['buy']) && !isNaN(this.filteredData[i]['sell'])) {
                     prices['buy'] += Number.parseFloat(this.filteredData[i]['buy']);
                     prices['sell'] += Number.parseFloat(this.filteredData[i]['sell']);
+                    length++;
                 }
             }
-            prices['buy'] = prices['buy'] / this.filteredData.length;
-            prices['sell'] = prices['sell'] / this.filteredData.length;
+            prices['buy'] = prices['buy'] / length;
+            prices['sell'] = prices['sell'] / length;
             return prices;
         }
     },
@@ -239,8 +241,7 @@ fetch(HANDSHAKE_URL + 'avg')
                 let buyPrices = handshake.map(i=>i.price_buy);
 
 
-
-                var data = {
+                let data = {
                     labels: countryLabel,
                     series: [
                         sellPrices,
@@ -248,11 +249,13 @@ fetch(HANDSHAKE_URL + 'avg')
                     ]
                 };
 
-                var options = {
-                    seriesBarDistance: 10
+                let options = {
+                    seriesBarDistance: 10,
+                    fullWidth: true,
+                    minY: 5000,
                 };
 
-                var responsiveOptions = [
+                let responsiveOptions = [
                     ['screen and (max-width: 640px)', {
                         seriesBarDistance: 5,
                         axisX: {
@@ -264,8 +267,6 @@ fetch(HANDSHAKE_URL + 'avg')
                 ];
 
                 new Chartist.Bar('.ct-chart', data, options, responsiveOptions);
-
-
 
             });
         }

@@ -26,7 +26,13 @@ function doHTTP(url) {
                 gzip: true
             }, (err, res, body)=> {
                 if(err) reject(err);
-                resolve(JSON.parse(body))
+                try {
+                    let parsed = JSON.parse(body);
+                    resolve(parsed);
+                }
+                catch (e){
+                    resolve({});
+                }
             });
     });
 

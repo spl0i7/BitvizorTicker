@@ -1,7 +1,7 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:400,500,700,300,100);
 
 body {
-    background-color: #3e94ec;
+    background-color: #fff;
     font-family: "Roboto", helvetica, arial, sans-serif;
     font-size: 16px;
     font-weight: 400;
@@ -147,3 +147,22 @@ td.text-center {
 td.text-right {
     text-align: right;
 }
+
+.navbar {
+    color: #555;
+    background-color: #fff;
+    -webkit-transition: none;
+    transition: none;
+    box-shadow: 0 10px 20px -12px rgba(0, 0, 0, 0.42), 0 3px 20px 0 rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
+    position: fixed;
+    width: 100%;
+    padding:5px;
+}
+.navbar-brand img{
+    width: auto;
+    max-height: 50px;
+}
+.jumbotron {
+    margin-top: 30px;
+}
+
