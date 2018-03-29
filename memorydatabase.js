@@ -13,6 +13,7 @@ module.exports = {
                         database[c][exchangeConfig[c]['exchanges'][i]['name']][exchangeConfig[c]['exchanges'][i]['currencies'][j]] = {};
                         database[c][exchangeConfig[c]['exchanges'][i]['name']][exchangeConfig[c]['exchanges'][i]['currencies'][j]]['buy'] = 0;
                         database[c][exchangeConfig[c]['exchanges'][i]['name']][exchangeConfig[c]['exchanges'][i]['currencies'][j]]['sell'] = 0;
+                        database[c][exchangeConfig[c]['exchanges'][i]['name']][exchangeConfig[c]['exchanges'][i]['currencies'][j]]['link'] = exchangeConfig[c]['exchanges'][i]['link'];
                         database[c][exchangeConfig[c]['exchanges'][i]['name']][exchangeConfig[c]['exchanges'][i]['currencies'][j]]['timestamp'] = null;
                         database[c][exchangeConfig[c]['exchanges'][i]['name']][exchangeConfig[c]['exchanges'][i]['currencies'][j]]['24hr_sell'] = 0;
                         database[c][exchangeConfig[c]['exchanges'][i]['name']][exchangeConfig[c]['exchanges'][i]['currencies'][j]]['24hr_buy'] = 0;

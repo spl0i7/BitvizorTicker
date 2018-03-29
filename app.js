@@ -11,6 +11,7 @@ let sseConnections = require('./middlewares/sse').sseConnections;
 let index = require('./routes/index');
 let stream = require('./routes/stream');
 let country = require('./routes/handshake');
+let clicked = require('./routes/clicked');
 let app = express();
 
 // view engine setup
@@ -27,6 +28,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(sse);
 app.use('/', index);
 app.use('/handshake', country);
+app.use('/clicked', clicked);
 app.use('/stream', stream);
 
 

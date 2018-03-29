@@ -10,6 +10,8 @@ let connection = mysql.createConnection({
 
 /*
 create table price_cache(exchange varchar(100), currency varchar (20), country varchar(5), sell bigint, buy bigint, timestamp datetime);
+create table click_stats(ip varchar(20) not null, timestamp datetime not null, exchange varchar(50) not null, currency varchar(5) not null);
+//datatypes can be improved
  */
 
 

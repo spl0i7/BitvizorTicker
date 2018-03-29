@@ -35,14 +35,14 @@
         </button>
         <div class="collapse navbar-collapse justify-content-end"  id="navbarSupportedContent">
             <ul class="nav navbar-nav ml-auto">
-                <li class="nav-item navbar-right">
-                    <a class="nav-link" href="http://news.bitvizor.com">Blog</a>
-                </li>
                 <li class="nav-item">
                     <a class="nav-link active" href="http://bitvizor.com">Live Prices</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="http://bitvizor.com/top100">Top 100</a>
+                </li>
+                <li class="nav-item navbar-right">
+                    <a class="nav-link" href="http://news.bitvizor.com">News</a>
                 </li>
             </ul>
         </div>
@@ -118,7 +118,7 @@
                     @click="sortBy(key)"
                     :class="{ active: sortKey == key }">
                     {{ key | capitalize }}
-                    <span :class="sortOrders[key] > 0 ? 'arrow-up' : 'arrow-down'"></span>
+                    <span v-if="key != 'link'"><span :class="sortOrders[key] > 0 ? 'arrow-up' : 'arrow-down'"></span></span>
                 </th>
             </tr>
             </thead>
@@ -133,6 +133,7 @@
                     <span :class="(key['24hr_sell'] - key.sell)> 0 ? 'text-success' : 'text-danger'">{{((key['24hr_sell'] - key.sell) /  key['24hr_sell']).toFixed(5) }} % </span> <br/>
                     <span v-if="localCurrency != '$'">$ {{ (key.sell / usdRate).toFixed(2) }}</span>
                 </td>
+                <td class="text-left"><button @click="clicked(key)" class="btn btn-primary btn-orange" >Buy/Sell</button></td>
             </tr>
             </tbody>
         </table>

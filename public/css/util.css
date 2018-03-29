@@ -32,3 +32,6 @@ background-color: rgba(233, 236, 239, 0.2);
     border-left: solid 20px transparent;
     border-right: solid 20px transparent;
 }
+.btn-orange {
+    background-color: #F57F17;
+}

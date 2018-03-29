@@ -111,13 +111,17 @@ Vue.component('table-component', {
         changeCoin : function (k) {
             this.filterCoin = k;
             setCookie("filterCoin", k, 365);
+        },
+        clicked : function(k) {
+          fetch(`/clicked/${k.alias}/${k.currency}`).
+              then(a=> window.location = k.link);
         }
     }
 });
 let vueInstance = new Vue({
     el : '#tableContainer',
     data : {
-        gridColumns : ['exchange', 'buy', 'sell'],
+        gridColumns : ['exchange', 'buy', 'sell', 'link' ],
         gridData : [],
         currencies : [],
         countries : [],
@@ -202,6 +206,7 @@ let vueInstance = new Vue({
                                 exchange : `${exchange} (${currency.toUpperCase()})`,
                                 buy : Number.parseFloat(data[exchange][currency]['buy']),
                                 sell : Number.parseFloat(data[exchange][currency]['sell']),
+                                link : data[exchange][currency]['link'],
                                 currency : currency,
                                 '24hr_buy' : Number.parseFloat(data[exchange][currency]['24hr_buy']),
                                 '24hr_sell' : Number.parseFloat(data[exchange][currency]['24hr_sell']),
