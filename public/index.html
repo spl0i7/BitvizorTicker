@@ -9,17 +9,206 @@
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
     <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
-    <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
-    <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
-    <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="vendor/perfect-scrollbar/perfect-scrollbar.css">
-    <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="css/util.css">
-    <link rel="stylesheet" type="text/css" href="css/main.css">
     <link rel="stylesheet" href="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
+    <style>
+        html,
+            /*body {*/
+            /*height: 100%;*/
+            /*}*/
+
+        body {
+            margin: 0;
+            background: linear-gradient(45deg, #49a09d, #5f2c82);
+            font-family: sans-serif;
+            font-weight: 100;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        th,
+        td {
+            padding: 15px;
+            background-color: rgba(255, 255, 255, 0.2);
+            color: #fff;
+        }
+
+        th {
+            text-align: left;
+        }
+
+        .tbl-container {
+        }
+
+        thead th {
+            background-color: #55608f;
+        }
+
+        tbody tr:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+        tbody td {
+            position: relative;
+        }
+        tbody td:hover:before {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: -9999px;
+            bottom: -9999px;
+            background-color: rgba(255, 255, 255, 0.2);
+            z-index: -1;
+        }
+        .navbar-brand img{
+            width: auto;
+            max-height: 50px;
+        }
+        @media screen and (min-width: 768px) {
+            .jumbotron {
+                display: none;
+            }
+        }
+        /*
+ * Copyright (c) 2012-2013 Thibaut Courouble
+ * http://www.cssflow.com
+ * Licensed under the MIT License
+ *
+ * Sass/SCSS source: https://goo.gl/qEV26
+ * PSD by Hemn Chawroka: https://goo.gl/nXZHJ
+ */
+
+
+        .dropdown {
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+            height: 28px;
+            width: 150px;
+            background: #f1f1f1;
+            border: 1px solid;
+            border-color: white #f7f7f7 whitesmoke;
+            border-radius: 3px;
+            background-image: -webkit-linear-gradient(top, transparent, rgba(0, 0, 0, 0.06));
+            background-image: -moz-linear-gradient(top, transparent, rgba(0, 0, 0, 0.06));
+            background-image: -o-linear-gradient(top, transparent, rgba(0, 0, 0, 0.06));
+            background-image: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.06));
+            -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 1px 1px rgba(0, 0, 0, 0.08);
+        }
+
+        .dropdown:before, .dropdown:after {
+            content: '';
+            position: absolute;
+            z-index: 2;
+            top: 9px;
+            right: 10px;
+            width: 0;
+            height: 0;
+            border: 4px dashed;
+            border-color: #888888 transparent;
+            pointer-events: none;
+        }
+
+        .dropdown:before {
+            border-bottom-style: solid;
+            border-top: none;
+        }
+
+        .dropdown:after {
+            margin-top: 7px;
+            border-top-style: solid;
+            border-bottom: none;
+        }
+
+        .dropdown-select {
+            position: relative;
+            width: 130%;
+            margin: 0;
+            padding: 6px 8px 6px 10px;
+            height: 28px;
+            line-height: 14px;
+            font-size: 12px;
+            color: #62717a;
+            text-shadow: 0 1px white;
+            background: #f2f2f2; /* Fallback for IE 8 */
+            background: rgba(0, 0, 0, 0) !important; /* "transparent" doesn't work with Opera */
+            border: 0;
+            border-radius: 0;
+            -webkit-appearance: none;
+        }
+
+        .dropdown-select:focus {
+            z-index: 3;
+            width: 100%;
+            color: #394349;
+            outline: 2px solid #49aff2;
+            outline: 2px solid -webkit-focus-ring-color;
+            outline-offset: -2px;
+        }
+
+        .dropdown-select > option {
+            margin: 3px;
+            padding: 6px 8px;
+            text-shadow: none;
+            background: #f2f2f2;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        /* Fix for IE 8 putting the arrows behind the select element. */
+
+        .lt-ie9 .dropdown {
+            z-index: 1;
+        }
+
+        .lt-ie9 .dropdown-select {
+            z-index: -1;
+        }
+
+        .lt-ie9 .dropdown-select:focus {
+            z-index: 3;
+        }
+
+        /* Dirty fix for Firefox adding padding where it shouldn't. */
+
+        @-moz-document url-prefix() {
+            .dropdown-select {
+                padding-left: 6px;
+            }
+        }
+
+        select {
+            margin-left : 400px;
+        }
+
+        .arrow-up {
+            display: inline-block;
+            margin: 0 5px;
+            vertical-align: middle;
+            width: 40px;
+            height: 20px;
+            border-bottom: solid 20px rgb(255,255,255);
+            border-left: solid 20px transparent;
+            border-right: solid 20px transparent;
+        }
+        .arrow-down {
+            display: inline-block;
+            margin: 0 5px;
+            vertical-align: middle;
+            width: 40px;
+            height: 20px;
+            border-top: solid 20px rgb(255,255,255);
+            border-left: solid 20px transparent;
+            border-right: solid 20px transparent;
+        }
+
+    </style>
     <!--===============================================================================================-->
 </head>
 
@@ -49,11 +238,6 @@
     </div>
 </nav>
 
-
-<div class="table-title">
-    <h3>Bitvizor</h3>
-</div>
-
 <script type="text/x-template" id="table-template">
 
     <div class="container">
@@ -65,78 +249,80 @@
             </div>
         </div>
 
-        <div class="menu-container">
-            <div class="dropdown dropright dropdown-currency">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownCurrency" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Select Currency
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="#" v-for="key in currencies" @click="changeCoin(key)">{{key}}</a>
-                </div>
+        <div class="d-flex">
+            <div class="dropdown">
+
+                <select name="one" class="dropdown-select" v-model="selectedCurrency" @change="changeCoin">
+                    <option disabled value="">Select Currency</option>
+                    <option  v-for="key in currencies" :value="key">{{key}}</option>
+                </select>
             </div>
-            <div class="dropdown dropright dropdown-country">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownCountry" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Select Country
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="#" v-for="key in countries" @click="changeCountry(key)">{{key}}</a>
-                </div>
+            <div class="dropdown">
+                <select name="two" class="dropdown-select" v-model="selectedCountry" @change="changeCountry">
+                    <option disabled value="">Select Country</option>
+                    <option  v-for="key in countries" :value="key">{{key}}</option>
+                </select>
             </div>
         </div>
-        <table class="table-fill" v-if="filterCoin != 'ALL'">
+
+        <table class="tbl-container" v-if="filterCoin != 'ALL'">
             <thead>
             <tr>
-                <th class="text-left">
+                <th>
                     Amount
                 </th>
-                <th class="text-left">
+                <th>
                     Avg Buy Price
                 </th>
-                <th class="text-left">
+                <th>
                     Avg Sell Price
                 </th>
             </tr>
             </thead>
-            <tbody class="table-hover">
+            <tbody>
+            <tr>
+                <td><input type="number" class="form-control col-xs-4"  value="1.0000" size="1" v-model="amount"></td>
+                <td><span>{{localCurrency}} {{Number.parseFloat(amount * avgCoin.buy).toFixed(2)}}</span><br/>
+                    <span v-if="localCurrency != '$'">$ {{Number.parseFloat(amount * avgCoin.buy / usdRate).toFixed(2)}}</span>
+                </td>
+                <td><span>{{localCurrency}} {{Number.parseFloat(amount * avgCoin.sell).toFixed(2)}}</span><br/>
+                    <span v-if="localCurrency != '$'">$ {{Number.parseFloat(amount * avgCoin.sell/ usdRate).toFixed(2)}}</span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+
+        <div class="tbl-container">
+            <table>
+                <thead>
                 <tr>
-                    <td class="text-left"><input type="number" class="form-control" id="staticEmail2" value="1.0000" size="1" v-model="amount"></td>
-                    <td class="text-left"><span>{{localCurrency}} {{Number.parseFloat(amount * avgCoin.buy).toFixed(2)}}</span><br/>
-                        <span v-if="localCurrency != '$'">$ {{Number.parseFloat(amount * avgCoin.buy / usdRate).toFixed(2)}}</span>
+                    <th class="text-left" v-for="key in columns"
+                        @click="sortBy(key)"
+                        :class="{ active: sortKey == key }">
+                        {{ key | capitalize }}
+                        <span :class="sortOrders[key] > 0 ? 'arrow-up' : 'arrow-down'"></span>
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr v-for="key in filteredData">
+                    <td class="text-left">{{key.exchange}} <br />
+                        <button @click="clicked(key)" class="btn btn-primary btn-orange" >Buy/Sell</button>
                     </td>
-                    <td class="text-left"><span>{{localCurrency}} {{Number.parseFloat(amount * avgCoin.sell).toFixed(2)}}</span><br/>
-                        <span v-if="localCurrency != '$'">$ {{Number.parseFloat(amount * avgCoin.sell/ usdRate).toFixed(2)}}</span>
+                    <td class="text-left">{{localCurrency}} {{key.buy.toFixed(2)}} <br/>
+                        <span :class="(key['24hr_buy'] - key.buy)> 0? 'text-success' : 'text-danger'">{{ ((key['24hr_buy'] - key.buy) / key['24hr_buy']).toFixed(5) }} % </span> <br/>
+                        <span v-if="localCurrency != '$'">$ {{ (key.buy / usdRate).toFixed(2) }}</span>
+                    </td>
+                    <td class="text-left">{{localCurrency}} {{key.sell.toFixed(2)}} <br/>
+                        <span :class="(key['24hr_sell'] - key.sell)> 0 ? 'text-success' : 'text-danger'">{{((key['24hr_sell'] - key.sell) /  key['24hr_sell']).toFixed(5) }} % </span> <br/>
+                        <span v-if="localCurrency != '$'">$ {{ (key.sell / usdRate).toFixed(2) }}</span>
                     </td>
                 </tr>
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+        </div>
 
-
-        <table class="table-fill">
-            <thead>
-            <tr>
-                <th class="text-left" v-for="key in columns"
-                    @click="sortBy(key)"
-                    :class="{ active: sortKey == key }">
-                    {{ key | capitalize }}
-                </th>
-            </tr>
-            </thead>
-            <tbody class="table-hover">
-            <tr v-for="key in filteredData">
-                <td class="text-left">{{key.exchange}} <br />
-                    <button @click="clicked(key)" class="btn btn-primary btn-orange" >Buy/Sell</button>
-                </td>
-                <td class="text-left">{{localCurrency}} {{key.buy.toFixed(2)}} <br/>
-                    <span :class="(key['24hr_buy'] - key.buy)> 0? 'text-success' : 'text-danger'">{{ ((key['24hr_buy'] - key.buy) / key['24hr_buy']).toFixed(5) }} % </span> <br/>
-                    <span v-if="localCurrency != '$'">$ {{ (key.buy / usdRate).toFixed(2) }}</span>
-                </td>
-                <td class="text-left">{{localCurrency}} {{key.sell.toFixed(2)}} <br/>
-                    <span :class="(key['24hr_sell'] - key.sell)> 0 ? 'text-success' : 'text-danger'">{{((key['24hr_sell'] - key.sell) /  key['24hr_sell']).toFixed(5) }} % </span> <br/>
-                    <span v-if="localCurrency != '$'">$ {{ (key.sell / usdRate).toFixed(2) }}</span>
-                </td>
-            </tr>
-            </tbody>
-        </table>
     </div>
 </script>
 <div id="tableContainer">
@@ -151,11 +337,11 @@
     </table-component>
 
 </div>
-<div class="d-flex justify-content-center container">
-    <div class="ct-chart ct-perfect-fourth col-md-6">
+<!--<div class="d-flex justify-content-center container">-->
+<!--<div class="ct-chart ct-perfect-fourth col-md-6">-->
 
-    </div>
-</div>
+<!--</div>-->
+<!--</div>-->
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-116570090-1"></script>
 <script>

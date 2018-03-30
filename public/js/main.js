@@ -51,7 +51,9 @@ Vue.component('table-component', {
             amount : 1.00000,
             filterCoin : getCookie('filterCoin')||'ALL',
             sortKey: '',
-            sortOrders: sortOrders
+            sortOrders: sortOrders,
+            selectedCurrency : '',
+            selectedCountry : '',
         }
     },
     computed : {
@@ -105,12 +107,13 @@ Vue.component('table-component', {
             this.sortKey = key;
             this.sortOrders[key] = this.sortOrders[key] * -1
         },
-        changeCountry: function(key){
-            bus.$emit('changeCountry', key);
+        changeCountry: function(){
+            bus.$emit('changeCountry', this.selectedCountry);
         },
-        changeCoin : function (k) {
-            this.filterCoin = k;
-            setCookie("filterCoin", k, 365);
+        changeCoin : function () {
+            console.log('Changed', this.selectedCurrency);
+            this.filterCoin = this.selectedCurrency;
+            setCookie("filterCoin", this.selectedCurrency, 365);
         },
         clicked : function(k) {
           fetch(`/clicked/${k.alias}/${k.currency}`).
