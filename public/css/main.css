@@ -1,151 +1,175 @@
-@import url(https://fonts.googleapis.com/css?family=Roboto:400,500,700,300,100);
+html,
+    /*body {*/
+    /*height: 100%;*/
+    /*}*/
 
 body {
-    background-color: #fff;
-    font-family: "Roboto", helvetica, arial, sans-serif;
-    font-size: 16px;
-    font-weight: 400;
-    text-rendering: optimizeLegibility;
+    margin: 0;
+    font-family: sans-serif;
+    font-weight: 100;
 }
 
-.menu-container {
-    display: flex;
-    justify-content: flex-start;
-    flex-direction: row;
-    margin-left: 35px;
-}
-div.table-title {
-    display: block;
-    margin: auto;
-    max-width: 1000px;
-    padding:5px;
+table {
     width: 100%;
-}
-
-.table-title h3 {
-    color: #fafafa;
-    font-size: 30px;
-    font-weight: 400;
-    font-style:normal;
-    font-family: "Roboto", helvetica, arial, sans-serif;
-    text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.1);
-    text-transform:uppercase;
-}
-
-
-/*** Table Styles **/
-
-.table-fill {
-    transition-duration: 0.5s;
-    background: white;
-    border-radius:3px;
     border-collapse: collapse;
-    margin: 30px auto;
-    max-width: 1000px;
-    padding:5px;
-    width: 100%;
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-    animation: float 5s infinite;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+th,
+td {
+    padding: 15px;
+    background-color: rgba(255, 255, 255, 0.2);
+
 }
 
 th {
-    color:#D5DDE5;;
-    background:#1b1e24;
-    border-bottom:4px solid #9ea7af;
-    border-right: 1px solid #343a45;
-    font-size:23px;
-    font-weight: 100;
-    padding:24px;
-    text-align:left;
-    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
-    vertical-align:middle;
-}
-
-th:first-child {
-    border-top-left-radius:3px;
-}
-
-th:last-child {
-    border-top-right-radius:3px;
-    border-right:none;
-}
-
-tr {
-    border-top: 1px solid #C1C3D1;
-    border-bottom-: 1px solid #C1C3D1;
-    color:#666B85;
-    font-size:16px;
-    font-weight:normal;
-    text-shadow: 0 1px 1px rgba(256, 256, 256, 0.1);
-}
-
-tr:hover td {
-    background:#4E5066;
-    color:#FFFFFF;
-    border-top: 1px solid #22262e;
-}
-
-tr:first-child {
-    border-top:none;
-}
-
-tr:last-child {
-    border-bottom:none;
-}
-
-tr:nth-child(odd) td {
-    background:#EBEBEB;
-}
-
-tr:nth-child(odd):hover td {
-    background:#4E5066;
-}
-
-tr:last-child td:first-child {
-    border-bottom-left-radius:3px;
-}
-
-tr:last-child td:last-child {
-    border-bottom-right-radius:3px;
-}
-
-td {
-    background:#FFFFFF;
-    padding:20px;
-    text-align:left;
-    vertical-align:middle;
-    font-weight:300;
-    font-size:18px;
-    text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.1);
-    border-right: 1px solid #C1C3D1;
-}
-
-td:last-child {
-    border-right: 0px;
-}
-
-th.text-left {
     text-align: left;
 }
 
-th.text-center {
-    text-align: center;
+.tbl-container {
 }
 
-th.text-right {
-    text-align: right;
+thead th {
+    background-color: #FFC107;
 }
 
-td.text-left {
-    text-align: left;
+tbody tr:hover {
+    background-color: rgba(255,193,7,0.5);
+}
+tbody td {
+    position: relative;
+}
+tbody td:hover:before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: -9999px;
+    bottom: -9999px;
+    background-color: rgba(255, 255, 255, 0.2);
+    z-index: -1;
+}
+.navbar-brand img{
+    width: auto;
+    max-height: 50px;
+}
+@media screen and (min-width: 768px) {
+    .jumbotron {
+        display: none;
+    }
+}
+/*
+* Copyright (c) 2012-2013 Thibaut Courouble
+* http://www.cssflow.com
+* Licensed under the MIT License
+*
+* Sass/SCSS source: https://goo.gl/qEV26
+* PSD by Hemn Chawroka: https://goo.gl/nXZHJ
+*/
+
+
+.dropdown {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+    height: 28px;
+    width: 150px;
+    background: #f1f1f1;
+    border: 1px solid;
+    border-color: white #f7f7f7 whitesmoke;
+    border-radius: 3px;
+    background-image: -webkit-linear-gradient(top, transparent, rgba(0, 0, 0, 0.06));
+    background-image: -moz-linear-gradient(top, transparent, rgba(0, 0, 0, 0.06));
+    background-image: -o-linear-gradient(top, transparent, rgba(0, 0, 0, 0.06));
+    background-image: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.06));
+    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.08);
 }
 
-td.text-center {
-    text-align: center;
+.dropdown:before, .dropdown:after {
+    content: '';
+    position: absolute;
+    z-index: 2;
+    top: 9px;
+    right: 10px;
+    width: 0;
+    height: 0;
+    border: 4px dashed;
+    border-color: #888888 transparent;
+    pointer-events: none;
 }
 
-td.text-right {
-    text-align: right;
+.dropdown:before {
+    border-bottom-style: solid;
+    border-top: none;
+}
+
+.dropdown:after {
+    margin-top: 7px;
+    border-top-style: solid;
+    border-bottom: none;
+}
+
+.dropdown-select {
+    position: relative;
+    width: 130%;
+    margin: 0;
+    padding: 6px 8px 6px 10px;
+    height: 28px;
+    line-height: 14px;
+    font-size: 12px;
+    text-shadow: 0 1px white;
+    background: #f2f2f2; /* Fallback for IE 8 */
+    background: rgb(255,193,7) !important; /* "transparent" doesn't work with Opera */
+    border: 3px;
+    border-radius: 0;
+    -webkit-appearance: none;
+}
+
+.dropdown-select:focus {
+    z-index: 3;
+    width: 100%;
+    color: #394349;
+    outline: 2px solid #49aff2;
+    outline: 2px solid -webkit-focus-ring-color;
+    outline-offset: -2px;
+}
+
+.dropdown-select > option {
+    margin: 3px;
+    padding: 6px 8px;
+    text-shadow: none;
+    background: #f2f2f2;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+/* Fix for IE 8 putting the arrows behind the select element. */
+
+.lt-ie9 .dropdown {
+    z-index: 1;
+}
+
+.lt-ie9 .dropdown-select {
+    z-index: -1;
+}
+
+.lt-ie9 .dropdown-select:focus {
+    z-index: 3;
+}
+
+/* Dirty fix for Firefox adding padding where it shouldn't. */
+
+@-moz-document url-prefix() {
+    .dropdown-select {
+        padding-left: 6px;
+    }
+}
+
+select {
+    margin-left : 400px;
 }
 
 .navbar {
@@ -154,16 +178,7 @@ td.text-right {
     -webkit-transition: none;
     transition: none;
     box-shadow: 0 10px 20px -12px rgba(0, 0, 0, 0.42), 0 3px 20px 0 rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
-    position: fixed;
     width: 100%;
     padding:5px;
     z-index: 99999999;
 }
-.navbar-brand img{
-    width: auto;
-    max-height: 50px;
-}
-.jumbotron {
-    margin-top: 30px;
-}
-

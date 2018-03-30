@@ -5,7 +5,7 @@
     margin-left:20px;
 }
 .jumbotron {
-background-color: rgba(233, 236, 239, 0.2);
+   background-color: rgba(233, 236, 239, 0.2);
 }
 .form-avgPrice {
     display: flex;
@@ -33,5 +33,12 @@ background-color: rgba(233, 236, 239, 0.2);
     border-right: solid 20px transparent;
 }
 .btn-orange {
-    background-color: #F57F17;
+    background-color: #FFC107;
+    border-color: #FFC107;
+}
+.ct-chart {
+    margin-top: 20px;
+}
+#tableContainer {
+    margin-top: 50px;
 }

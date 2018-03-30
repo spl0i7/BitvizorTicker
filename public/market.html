@@ -47,30 +47,26 @@
 </nav>
 
 
-<div class="table-title">
-    <h3>CoinScour</h3>
-</div>
-
 <script type="text/x-template" id="table-template">
 
     <div class="container">
 
-        <table class="table-fill">
+        <table class="tbl-container">
             <thead>
             <tr>
-                <th class="text-left" v-for="key in columns">
+                <th v-for="key in columns">
                     {{ key | capitalize }}
                 </th>
             </tr>
             </thead>
-            <tbody class="table-hover">
+            <tbody >
             <tr v-for="key in data">
-                <td class="text-left">{{key.name}} ({{key.symbol}})</td>
-                <td class="text-left">$ {{formatPrice(key.price_usd)}} <br/>
+                <td>{{key.name}} ({{key.symbol}})</td>
+                <td>$ {{formatPrice(key.price_usd)}} <br/>
                 </td>
-                <td class="text-left">$  {{formatVol(key['24h_volume_usd'])}} <br/>
+                <td>$  {{formatVol(key['24h_volume_usd'])}} <br/>
                 </td>
-                <td class="text-left">
+                <td class>
                     <span :class="(key['percent_change_24h'])> 0? 'text-success' : 'text-danger'">{{key['percent_change_24h']}} % </span>
                     <br/>
                 </td>
