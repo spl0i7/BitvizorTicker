@@ -244,7 +244,7 @@ module.exports = {
                 currencies : ['btc']
             },
             {
-                link : 'https://hitbtc.com/',
+                link : 'https://bit.ly/29IsbTd',
                 name : 'HiBitcoin',
                 currencies : ['btc', 'ltc', 'eth',  'zec', 'bch', 'xmr', 'dash', 'omg', 'eos']
             },
