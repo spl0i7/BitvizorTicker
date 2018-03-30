@@ -118,13 +118,14 @@
                     @click="sortBy(key)"
                     :class="{ active: sortKey == key }">
                     {{ key | capitalize }}
-                    <span v-if="key != 'link'"><span :class="sortOrders[key] > 0 ? 'arrow-up' : 'arrow-down'"></span></span>
                 </th>
             </tr>
             </thead>
             <tbody class="table-hover">
             <tr v-for="key in filteredData">
-                <td class="text-left">{{key.exchange}}</td>
+                <td class="text-left">{{key.exchange}} <br />
+                    <button @click="clicked(key)" class="btn btn-primary btn-orange" >Buy/Sell</button>
+                </td>
                 <td class="text-left">{{localCurrency}} {{key.buy.toFixed(2)}} <br/>
                     <span :class="(key['24hr_buy'] - key.buy)> 0? 'text-success' : 'text-danger'">{{ ((key['24hr_buy'] - key.buy) / key['24hr_buy']).toFixed(5) }} % </span> <br/>
                     <span v-if="localCurrency != '$'">$ {{ (key.buy / usdRate).toFixed(2) }}</span>
@@ -133,7 +134,6 @@
                     <span :class="(key['24hr_sell'] - key.sell)> 0 ? 'text-success' : 'text-danger'">{{((key['24hr_sell'] - key.sell) /  key['24hr_sell']).toFixed(5) }} % </span> <br/>
                     <span v-if="localCurrency != '$'">$ {{ (key.sell / usdRate).toFixed(2) }}</span>
                 </td>
-                <td class="text-left"><button @click="clicked(key)" class="btn btn-primary btn-orange" >Buy/Sell</button></td>
             </tr>
             </tbody>
         </table>

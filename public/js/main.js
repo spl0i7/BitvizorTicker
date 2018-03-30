@@ -121,7 +121,7 @@ Vue.component('table-component', {
 let vueInstance = new Vue({
     el : '#tableContainer',
     data : {
-        gridColumns : ['exchange', 'buy', 'sell', 'link' ],
+        gridColumns : ['exchange', 'buy', 'sell' ],
         gridData : [],
         currencies : [],
         countries : [],
