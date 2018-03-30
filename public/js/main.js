@@ -40,7 +40,8 @@ Vue.component('table-component', {
         localCurrency : String,
         countries : Array,
         usdRate : Number,
-        countryName : String
+        countryName : String,
+        countryNames : Object
     },
     data: function() {
         let sortOrders = {};
@@ -133,6 +134,7 @@ let vueInstance = new Vue({
         sse : null,
         usdRate : 0.0,
         countryName : '',
+        countryNames : {},
     },
     mounted : function() {
         bus.$on('changeCountry', (key)=>{
@@ -164,6 +166,8 @@ let vueInstance = new Vue({
                     response.json().then((handshake)=>{
                         this.countryName = handshake['countryName'];
                         this.countries = handshake['countries'];
+                        this.countryNames = handshake['countryNames'];
+                        this.countries.sort();
                         this.localCurrency = handshake['localCurrency'];
                         this.usdRate = handshake['USDRate'];
                         this.connectAPI(handshake['country']);
@@ -220,7 +224,6 @@ let vueInstance = new Vue({
                 else {
                     for(let i = 0; i < this.gridData.length; i++) {
                         if(this.gridData[i]['alias'] === currentExchange && this.gridData[i]['currency'] === data['currency'] ) {
-                            console.log('match');
                             this.gridData[i]['buy'] = Number.parseFloat(data['price']['buy']);
                             this.gridData[i]['sell'] = Number.parseFloat(data['price']['sell']);
                             break;

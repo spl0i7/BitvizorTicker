@@ -458,5 +458,14 @@ module.exports = {
             }
         ]
     },
+    CN : {
+        exchanges : [
+            {
+                link : 'https://localbitcoins.com',
+                name : 'LocalBitcoins',
+                currencies : ['btc']
+            },
+        ]
+    },
 };
 

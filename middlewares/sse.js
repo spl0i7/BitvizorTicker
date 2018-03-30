@@ -39,5 +39,6 @@ module.exports = {
         TH : [],
         RU : [],
         IL : [],
+        CN : [],
     }
 };

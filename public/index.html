@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>CoinExchange</title>
+    <title>Bitvizor - Live CryptoCurrency Prices</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--===============================================================================================-->
@@ -10,6 +10,7 @@
     <link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/util.css">
     <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <!--===============================================================================================-->
     <link rel="stylesheet" href="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
     <style>
@@ -89,8 +90,8 @@
             flex-direction: column;
             position: relative;
             overflow: hidden;
-            height: 28px;
-            width: 150px;
+            height: 40px;
+            flex: 0 0 150px;
             background: #f1f1f1;
             border: 1px solid;
             border-color: white #f7f7f7 whitesmoke;
@@ -132,7 +133,7 @@
             width: 130%;
             margin: 0;
             padding: 6px 8px 6px 10px;
-            height: 28px;
+            height: 40px;
             line-height: 14px;
             font-size: 12px;
             text-shadow: 0 1px white;
@@ -198,6 +199,29 @@
             z-index: 99999999;
         }
 
+        .footer-bottom {
+            color: #fff;
+            margin-top:30px;
+            background-color: #323437;
+            min-height: 70px;
+            width: 100%;
+        }
+        .copyright {
+            padding: 20px;
+        }
+        .fa {
+            color: #fff;
+            font-size: 30px;
+            width: 50px;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        .fa:hover {
+            opacity: 0.7;
+        }
+
+
 
     </style>
     <!--===============================================================================================-->
@@ -234,8 +258,7 @@
     <div class="container main-container">
         <div class="jumbotron  d-flex justify-content-center">
             <div class="container">
-                <h1>Buy and sell CryptoCurrencies near you in {{countryName}}</h1>
-                <h2>Buy Bitcoins online</h2>
+                <h1>Live CryptoCurrencies prices in {{countryName}}</h1>
                 <h3>Compare. Analyze. Trade. </h3>
             </div>
         </div>
@@ -251,7 +274,7 @@
             <div class="dropdown">
                 <select name="two" class="dropdown-select" v-model="selectedCountry" @change="changeCountry">
                     <option disabled value="">Select Country</option>
-                    <option  v-for="key in countries" :value="key">{{key}}</option>
+                    <option  v-for="key in countries" :value="key">{{countryNames[key]}}</option>
                 </select>
             </div>
         </div>
@@ -319,6 +342,7 @@
 <div id="tableContainer">
     <table-component
             :country-Name="countryName"
+            :country-Names = "countryNames"
             :usd-rate="usdRate"
             :local-Currency="localCurrency"
             :countries="countries"
@@ -333,6 +357,27 @@
 
 </div>
 </div>
+
+<div class="footer-bottom">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                <div class="copyright">
+                    <a href="#" class="fa fa-facebook"></a>
+                    <a href="#" class="fa fa-twitter"></a>
+                    <a href="#" class="fa fa-reddit"></a>
+                    <a href="#" class="fa fa-telegram"></a>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                <div class="copyright">
+                    <p>Copyright 2018</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-116570090-1"></script>
 <script>

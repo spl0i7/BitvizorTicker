@@ -78,6 +78,10 @@ module.exports = {
     RU : {
         symbol : '₽',
         name : 'RUB'
+    },
+    CN : {
+        symbol : '¥',
+        name : 'CNY'
     }
 
 };

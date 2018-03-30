@@ -1,27 +1,223 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>CoinExchange</title>
+    <title>Bitvizor - Top 100 Coins</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--===============================================================================================-->
     <link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
-    <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
-    <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
-    <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
-    <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="vendor/perfect-scrollbar/perfect-scrollbar.css">
-    <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="css/util.css">
     <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
+    <style>
+        html,
+            /*body {*/
+            /*height: 100%;*/
+            /*}*/
+
+        body {
+            margin: 0;
+            font-family: sans-serif;
+            font-weight: 100;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        th,
+        td {
+            padding: 15px;
+            background-color: rgba(255, 255, 255, 0.2);
+
+        }
+
+        th {
+            text-align: left;
+        }
+
+        .tbl-container {
+        }
+
+        thead th {
+            background-color: #FFC107;
+        }
+
+        tbody tr:hover {
+            background-color: rgba(255,193,7,0.5);
+        }
+        tbody td {
+            position: relative;
+        }
+        tbody td:hover:before {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: -9999px;
+            bottom: -9999px;
+            background-color: rgba(255, 255, 255, 0.2);
+            z-index: -1;
+        }
+        .navbar-brand img{
+            width: auto;
+            max-height: 50px;
+        }
+        @media screen and (min-width: 768px) {
+            .jumbotron {
+                display: none;
+            }
+        }
+
+        .dropdown {
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+            height: 28px;
+            width: 150px;
+            background: #f1f1f1;
+            border: 1px solid;
+            border-color: white #f7f7f7 whitesmoke;
+            border-radius: 3px;
+            background-image: -webkit-linear-gradient(top, transparent, rgba(0, 0, 0, 0.06));
+            background-image: -moz-linear-gradient(top, transparent, rgba(0, 0, 0, 0.06));
+            background-image: -o-linear-gradient(top, transparent, rgba(0, 0, 0, 0.06));
+            background-image: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.06));
+            -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 1px 1px rgba(0, 0, 0, 0.08);
+        }
+
+        .dropdown:before, .dropdown:after {
+            content: '';
+            position: absolute;
+            z-index: 2;
+            top: 9px;
+            right: 10px;
+            width: 0;
+            height: 0;
+            border: 4px dashed;
+            border-color: #888888 transparent;
+            pointer-events: none;
+        }
+
+        .dropdown:before {
+            border-bottom-style: solid;
+            border-top: none;
+        }
+
+        .dropdown:after {
+            margin-top: 7px;
+            border-top-style: solid;
+            border-bottom: none;
+        }
+
+        .dropdown-select {
+            position: relative;
+            width: 130%;
+            margin: 0;
+            padding: 6px 8px 6px 10px;
+            height: 28px;
+            line-height: 14px;
+            font-size: 12px;
+            text-shadow: 0 1px white;
+            background: #f2f2f2; /* Fallback for IE 8 */
+            background: rgb(255,193,7) !important; /* "transparent" doesn't work with Opera */
+            border: 3px;
+            border-radius: 0;
+            -webkit-appearance: none;
+        }
+
+        .dropdown-select:focus {
+            z-index: 3;
+            width: 100%;
+            color: #394349;
+            outline: 2px solid #49aff2;
+            outline: 2px solid -webkit-focus-ring-color;
+            outline-offset: -2px;
+        }
+
+        .dropdown-select > option {
+            margin: 3px;
+            padding: 6px 8px;
+            text-shadow: none;
+            background: #f2f2f2;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        /* Fix for IE 8 putting the arrows behind the select element. */
+
+        .lt-ie9 .dropdown {
+            z-index: 1;
+        }
+
+        .lt-ie9 .dropdown-select {
+            z-index: -1;
+        }
+
+        .lt-ie9 .dropdown-select:focus {
+            z-index: 3;
+        }
+
+        /* Dirty fix for Firefox adding padding where it shouldn't. */
+
+        @-moz-document url-prefix() {
+            .dropdown-select {
+                padding-left: 6px;
+            }
+        }
+
+        select {
+            margin-left : 400px;
+        }
+
+        .navbar {
+            color: #555;
+            background-color: #fff;
+            -webkit-transition: none;
+            transition: none;
+            box-shadow: 0 10px 20px -12px rgba(0, 0, 0, 0.42), 0 3px 20px 0 rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            padding:5px;
+            z-index: 99999999;
+        }
+        .footer-bottom {
+            color: #fff;
+            margin-top:30px;
+            background-color: #323437;
+            min-height: 70px;
+            width: 100%;
+        }
+        .copyright {
+            padding: 20px;
+        }
+        .fa {
+            color: #fff;
+            font-size: 30px;
+            width: 50px;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        .fa:hover {
+            opacity: 0.7;
+        }
+
+
+    </style>
     <!--===============================================================================================-->
 </head>
+
 <body>
+
 <nav class="navbar navbar-expand-lg navbar-light">
     <div class="container">
         <a class="navbar-brand" href="#">
@@ -33,9 +229,9 @@
         <div class="collapse navbar-collapse justify-content-end"  id="navbarSupportedContent">
             <ul class="nav navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="http://bitvizor.com">Live Prices</a>
+                    <a class="nav-link active" href="http://bitvizor.com">Live Prices</a>
                 </li>
-                <li class="nav-item active">
+                <li class="nav-item">
                     <a class="nav-link" href="http://bitvizor.com/top100">Top 100</a>
                 </li>
                 <li class="nav-item navbar-right">
@@ -46,42 +242,62 @@
     </div>
 </nav>
 
-
 <script type="text/x-template" id="table-template">
 
-    <div class="container">
+    <div class="container main-container">
 
-        <table class="tbl-container">
-            <thead>
-            <tr>
-                <th v-for="key in columns">
-                    {{ key | capitalize }}
-                </th>
-            </tr>
-            </thead>
-            <tbody >
-            <tr v-for="key in data">
-                <td>{{key.name}} ({{key.symbol}})</td>
-                <td>$ {{formatPrice(key.price_usd)}} <br/>
-                </td>
-                <td>$  {{formatVol(key['24h_volume_usd'])}} <br/>
-                </td>
-                <td class>
+        <div class="tbl-container">
+            <table>
+                <thead>
+                <tr>
+                    <th class="text-left" v-for="key in columns">
+                        {{ key | capitalize }}
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr v-for="key in data">
+                    <td>{{key.name}} ({{key.symbol}}) <br />
                     <span :class="(key['percent_change_24h'])> 0? 'text-success' : 'text-danger'">{{key['percent_change_24h']}} % </span>
-                    <br/>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+                    </td>
+                    <td>$ {{formatPrice(key.price_usd)}} <br/>
+                    </td>
+                    <td>$  {{formatVol(key['24h_volume_usd'])}} <br/>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
     </div>
 </script>
 <div id="tableContainer">
     <table-component
-            :data= "gridData"
-            :columns ="gridColumns">
+    :data= "gridData"
+    :columns ="gridColumns">
     </table-component>
-
 </div>
+
+<div class="footer-bottom">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                <div class="copyright">
+                    <a href="#" class="fa fa-facebook"></a>
+                    <a href="#" class="fa fa-twitter"></a>
+                    <a href="#" class="fa fa-reddit"></a>
+                    <a href="#" class="fa fa-telegram"></a>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                <div class="copyright">
+                    <p>Copyright 2018</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-116570090-1"></script>
 <script>
@@ -96,9 +312,11 @@
 <script src="vendor/bootstrap/js/popper.js"></script>
 <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
 <script src="vendor/select2/select2.min.js"></script>
+
+<script src="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
 <script src="js/market.js"></script>
-</body>
+
 </body>
 </html>

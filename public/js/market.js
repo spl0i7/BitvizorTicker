@@ -30,7 +30,7 @@ Vue.component('table-component', {
 let vueInstance = new Vue({
     el : '#tableContainer',
     data : {
-        gridColumns : ['name', 'price', 'volume', 'change'],
+        gridColumns : ['name', 'price', 'volume'],
         gridData : [],
     },
     mounted : function() {

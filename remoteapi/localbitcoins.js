@@ -4,7 +4,7 @@ let logger = require('tracer').colorConsole();
 
 const WAIT_TIME = 1000 * 60 * 4;
 const EXCHANGE = 'LocalBitcoins';
-const COUNTRIES = ['CL','CA', 'GB', 'HK', 'IN', 'RU', 'IL', 'JP', 'KE', 'KR', 'MX', 'NG', 'PK', 'SG', 'SE', 'TH', 'US', 'VN'];
+const COUNTRIES = ['CL','CA', 'CN', 'GB', 'HK', 'IN', 'RU', 'IL', 'JP', 'KE', 'KR', 'MX', 'NG', 'PK', 'SG', 'SE', 'TH', 'US', 'VN'];
 
 
 

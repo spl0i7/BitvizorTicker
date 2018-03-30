@@ -91,6 +91,12 @@ router.get('/', function(req, res) {
     }
 
     let supportedCounties = Object.keys(database);
+    let countryNames = {};
+    for(let i = 0; i < supportedCounties.length; i++){
+        let name = supportedCounties[i];
+
+        countryNames[name] = countryCode[name];
+    }
 
     if(!supportedCounties.includes(country)) {
         country = 'US';
@@ -102,6 +108,7 @@ router.get('/', function(req, res) {
             country : country,
             localCurrency :  currencydb[country]['symbol'],
             countries :  supportedCounties,
+            countryNames : countryNames,
             USDRate : money(1.0).from('USD').to(currencydb[country]['name']),
             countryName : countryCode[country]
         }
