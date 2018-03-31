@@ -23,7 +23,7 @@ Vue.component('table-component', {
             return numeral(v).format('0,0.0000')
         },
         formatVol : function (v) {
-            return numeral(v).format('0,0')
+            return numeral(v).format('0.00 a')
         }
     }
 });
