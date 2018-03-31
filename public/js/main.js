@@ -103,7 +103,11 @@ Vue.component('table-component', {
             return str.charAt(0).toUpperCase() + str.slice(1)
         }
     },
+
     methods: {
+        formatPrice: function (n) {
+            return numeral(n).format('0.[00]');
+        },
         sortBy: function (key) {
             this.sortKey = key;
             this.sortOrders[key] = this.sortOrders[key] * -1

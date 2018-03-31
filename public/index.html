@@ -296,11 +296,11 @@
             <tbody>
             <tr>
                 <td><input type="number" class="form-control col-xs-4"  value="1.0000" size="1" v-model="amount"></td>
-                <td><span>{{localCurrency}} {{Number.parseFloat(amount * avgCoin.buy).toFixed(2)}}</span><br/>
-                    <span v-if="localCurrency != '$'">$ {{Number.parseFloat(amount * avgCoin.buy / usdRate).toFixed(2)}}</span>
+                <td><span>{{localCurrency}} {{formatPrice(amount * avgCoin.buy)}}</span><br/>
+                    <span v-if="localCurrency != '$'">$ {{formatPrice(amount * avgCoin.buy / usdRate)}}</span>
                 </td>
-                <td><span>{{localCurrency}} {{Number.parseFloat(amount * avgCoin.sell).toFixed(2)}}</span><br/>
-                    <span v-if="localCurrency != '$'">$ {{Number.parseFloat(amount * avgCoin.sell/ usdRate).toFixed(2)}}</span>
+                <td><span>{{localCurrency}} {{formatPrice(amount * avgCoin.sell)}}</span><br/>
+                    <span v-if="localCurrency != '$'">$ {{formatPrice(amount * avgCoin.sell/ usdRate)}}</span>
                 </td>
             </tr>
             </tbody>
@@ -324,13 +324,13 @@
                     <td class="text-left">{{key.exchange}} <br />
                         <button @click="clicked(key)" class="btn btn-primary btn-orange" >Buy/Sell</button>
                     </td>
-                    <td class="text-left">{{localCurrency}} {{key.buy.toFixed(2)}} <br/>
+                    <td class="text-left">{{localCurrency}} {{formatPrice(key.buy)}} <br/>
                         <span :class="(key['24hr_buy'] - key.buy)> 0? 'text-success' : 'text-danger'">{{ ((key['24hr_buy'] - key.buy) / key['24hr_buy']).toFixed(5) }} % </span> <br/>
-                        <span v-if="localCurrency != '$'">$ {{ (key.buy / usdRate).toFixed(2) }}</span>
+                        <span v-if="localCurrency != '$'">$ {{ formatPrice(key.buy / usdRate) }}</span>
                     </td>
-                    <td class="text-left">{{localCurrency}} {{key.sell.toFixed(2)}} <br/>
+                    <td class="text-left">{{localCurrency}} {{formatPrice(key.sell)}} <br/>
                         <span :class="(key['24hr_sell'] - key.sell)> 0 ? 'text-success' : 'text-danger'">{{((key['24hr_sell'] - key.sell) /  key['24hr_sell']).toFixed(5) }} % </span> <br/>
-                        <span v-if="localCurrency != '$'">$ {{ (key.sell / usdRate).toFixed(2) }}</span>
+                        <span v-if="localCurrency != '$'">$ {{ formatPrice(key.sell / usdRate) }}</span>
                     </td>
                 </tr>
                 </tbody>
@@ -393,7 +393,7 @@
 <script src="vendor/bootstrap/js/popper.js"></script>
 <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
 <script src="vendor/select2/select2.min.js"></script>
-
+<script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
 <script src="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
 <script src="js/main.js"></script>
