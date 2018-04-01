@@ -106,7 +106,7 @@ Vue.component('table-component', {
 
     methods: {
         formatPrice: function (n) {
-            return numeral(n).format('0.[00]');
+            return numeral(n).format('0,0.[00]');
         },
         sortBy: function (key) {
             this.sortKey = key;
