@@ -243,50 +243,53 @@ let vueInstance = new Vue({
     }
 });
 
-fetch(HANDSHAKE_URL + 'avg')
-    .then((response)=> {
-            if (response.status !== 200) {
-                console.log('Looks like there was a problem. Status Code: ' +
-                    response.status);
-                return;
-            }
-            response.json().then((handshake)=>{
-                let countryLabel = handshake.map(i=>i.country);
-                let sellPrices = handshake.map(i=>i.price_sell);
-                let buyPrices = handshake.map(i=>i.price_buy);
 
-
-                let data = {
-                    labels: countryLabel,
-                    series: [
-                        sellPrices,
-                        buyPrices
-                    ]
-                };
-
-                let options = {
-                    seriesBarDistance: 10,
-                    fullWidth: true,
-                    minY: 5000,
-                };
-
-                let responsiveOptions = [
-                    ['screen and (max-width: 640px)', {
-                        seriesBarDistance: 5,
-                        axisX: {
-                            labelInterpolationFnc: function (value) {
-                                return value[0];
-                            }
-                        }
-                    }]
-                ];
-
-                new Chartist.Bar('.ct-chart', data, options, responsiveOptions);
-
-            });
+Vue.component('avg-table-component', {
+    template : '#avg-table-template',
+    props : {
+        data : Array,
+        columns: Array,
+        title : String
+    },
+    filters : {
+        capitalize: function (str) {
+            return str.charAt(0).toUpperCase() + str.slice(1)
         }
-    )
-    .catch((err)=> console.log('Fetch Error :-S', err));
+
+    },
+    methods : {
+        formatPrice: function (v) {
+            return numeral(v).format('0,0.[00]');
+        },
+    }
+});
+
+let avgVueInstance = new Vue({
+    el : '#avgtableContainer',
+    data : {
+        gridColumns : ['country', 'buy', 'sell'],
+        gridData : [],
+    },
+    mounted : function() {
+        fetch(HANDSHAKE_URL + 'avg')
+            .then((response)=> {
+                    if (response.status !== 200) {
+                        console.log('Looks like there was a problem. Status Code: ' +
+                            response.status);
+                        return;
+                    }
+                    response.json().then((data)=>{
+                        this.gridData = data;
+                    });
+                }
+            )
+            .catch((err)=> console.log('Fetch Error :-S', err));
+    },
+    methods : {
+    }
+});
+
+
 
 //
 // let ws = new WebSocket(WS_URL);

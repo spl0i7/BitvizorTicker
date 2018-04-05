@@ -47,23 +47,34 @@ service.latest().then(function(result){
 function getResults() {
     return new Promise((resolve, reject)=> {
         mysql.query({
-            sql : "select avg(sell) as SELL, avg(buy) as BUY, country as COUNTRY  from `price_cache` where `currency`='btc' and `exchange` != 'LocalBitcoins' and  `country` in ('GB', 'US', 'IN', 'CA', 'JP', 'KR', 'SG', 'HK', 'MX', 'BR') group by `country`",
+            sql : "select `currency` as CURRENCY, avg(sell) as SELL, avg(buy) as BUY, `country` as COUNTRY  from `price_cache` where `currency` in ('btc','eth') and `exchange` != 'LocalBitcoins' and  `country` in ('GB', 'US', 'IN', 'CA', 'JP', 'KR', 'SG', 'HK', 'MX', 'BR') group by `country`,  `currency` order by `currency`",
             timeout : 4000,
         }, (err, results, fields)=>{
             if(err) reject(err);
             else {
 
-                let formattedOut = [];
+                let btcformattedOut = [];
+                let ethformattedOut = [];
 
                 for(let i = 0 ; i < results.length; i++) {
                     let obj = {};
                     obj['price_sell'] = money(results[i].SELL).from(currencydb[results[i].COUNTRY]['name']).to('USD').toFixed(2);
                     obj['price_buy'] = money(results[i].BUY).from(currencydb[results[i].COUNTRY]['name']).to('USD').toFixed(2);
                     obj['country'] = countryCode[results[i].COUNTRY];
-                    formattedOut.push(obj);
+
+                    if(results[i].CURRENCY === 'btc') {
+                        btcformattedOut.push(obj);
+                    }
+                    else if(results[i].CURRENCY === 'eth') {
+                        ethformattedOut.push(obj);
+                    }
+
                 }
 
-                resolve(formattedOut);
+                resolve({
+                    btc : btcformattedOut,
+                    eth : ethformattedOut
+                });
             }
         });
     });

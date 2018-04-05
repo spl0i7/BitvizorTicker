@@ -8,230 +8,11 @@
     <link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="css/util.css">
-    <link rel="stylesheet" type="text/css" href="css/main.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="stylesheet" type="text/css" href="css/util.css">
     <!--===============================================================================================-->
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
     <style>
-        html,
-            /*body {*/
-            /*height: 100%;*/
-            /*}*/
-
-        body {
-            margin: 0;
-            font-family: sans-serif;
-            font-weight: 100;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            overflow: hidden;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-        }
-
-        th,
-        td {
-            padding: 15px;
-            background-color: rgba(255, 255, 255, 0.2);
-
-        }
-
-        th {
-            text-align: left;
-        }
-
-        .tbl-container {
-        }
-
-        thead th {
-            background-color: #FFC107;
-        }
-
-        tbody tr:hover {
-            background-color: rgba(255,193,7,0.5);
-        }
-        tbody td {
-            position: relative;
-        }
-        tbody td:hover:before {
-            content: "";
-            position: absolute;
-            left: 0;
-            right: 0;
-            top: -9999px;
-            bottom: -9999px;
-            background-color: rgba(255, 255, 255, 0.2);
-            z-index: -1;
-        }
-        .navbar-brand img{
-            width: auto;
-            max-height: 50px;
-        }
-        @media screen and (min-width: 768px) {
-            .jumbotron {
-                display: none;
-            }
-        }
-        /*
- * Copyright (c) 2012-2013 Thibaut Courouble
- * http://www.cssflow.com
- * Licensed under the MIT License
- *
- * Sass/SCSS source: https://goo.gl/qEV26
- * PSD by Hemn Chawroka: https://goo.gl/nXZHJ
- */
-
-
-        .dropdown {
-            display: flex;
-            flex-direction: column;
-            position: relative;
-            overflow: hidden;
-            height: 40px;
-            flex: 0 0 150px;
-            background: #f1f1f1;
-            border: 1px solid;
-            border-color: white #f7f7f7 whitesmoke;
-            border-radius: 3px;
-            background-image: -webkit-linear-gradient(top, transparent, rgba(0, 0, 0, 0.06));
-            background-image: -moz-linear-gradient(top, transparent, rgba(0, 0, 0, 0.06));
-            background-image: -o-linear-gradient(top, transparent, rgba(0, 0, 0, 0.06));
-            background-image: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.06));
-            -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.08);
-            box-shadow: 0 1px 1px rgba(0, 0, 0, 0.08);
-        }
-
-        .dropdown:before, .dropdown:after {
-            content: '';
-            position: absolute;
-            z-index: 2;
-            top: 9px;
-            right: 10px;
-            width: 0;
-            height: 0;
-            border: 4px dashed;
-            border-color: #888888 transparent;
-            pointer-events: none;
-        }
-
-        .dropdown:before {
-            border-bottom-style: solid;
-            border-top: none;
-        }
-
-        .dropdown:after {
-            margin-top: 7px;
-            border-top-style: solid;
-            border-bottom: none;
-        }
-
-        .dropdown-select {
-            position: relative;
-            width: 130%;
-            margin: 0;
-            padding: 6px 8px 6px 10px;
-            height: 40px;
-            line-height: 14px;
-            font-size: 12px;
-            text-shadow: 0 1px white;
-            background: #f2f2f2; /* Fallback for IE 8 */
-            background: rgb(255,193,7) !important; /* "transparent" doesn't work with Opera */
-            border: 3px;
-            border-radius: 0;
-            -webkit-appearance: none;
-        }
-
-        .dropdown-select:focus {
-            z-index: 3;
-            width: 100%;
-            color: #394349;
-            outline: 2px solid #49aff2;
-            outline: 2px solid -webkit-focus-ring-color;
-            outline-offset: -2px;
-        }
-
-        .dropdown-select > option {
-            margin: 3px;
-            padding: 6px 8px;
-            text-shadow: none;
-            background: #f2f2f2;
-            border-radius: 3px;
-            cursor: pointer;
-        }
-
-        /* Fix for IE 8 putting the arrows behind the select element. */
-
-        .lt-ie9 .dropdown {
-            z-index: 1;
-        }
-
-        .lt-ie9 .dropdown-select {
-            z-index: -1;
-        }
-
-        .lt-ie9 .dropdown-select:focus {
-            z-index: 3;
-        }
-
-        /* Dirty fix for Firefox adding padding where it shouldn't. */
-
-        @-moz-document url-prefix() {
-            .dropdown-select {
-                padding-left: 6px;
-            }
-        }
-
-        select {
-            margin-left : 400px;
-        }
-
-        .navbar {
-            color: #555;
-            background-color: #fff;
-            -webkit-transition: none;
-            transition: none;
-            box-shadow: 0 10px 20px -12px rgba(0, 0, 0, 0.42), 0 3px 20px 0 rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
-            width: 100%;
-            padding:5px;
-            z-index: 99999999;
-        }
-
-        .footer-bottom {
-            color: #fff;
-            margin-top:30px;
-            background-color: #323437;
-            min-height: 70px;
-            width: 100%;
-            position: relative;
-            bottom: 0;
-        }
-        .copyright {
-            padding: 20px;
-
-        }
-        .copyright a {
-            color: #fff;
-            font-weight: bold;
-            text-decoration: none;
-        }
-        .fa {
-            color: #fff;
-            font-size: 30px;
-            width: 50px;
-            text-align: center;
-            text-decoration: none;
-        }
-
-        .fa:hover {
-            opacity: 0.7;
-        }
-
-
-
-
     </style>
     <!--===============================================================================================-->
 </head>
@@ -314,20 +95,19 @@
 
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-116570090-1"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-116902008-2"></script>
 <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
 
-    gtag('config', 'UA-116570090-1');
+    gtag('config', 'UA-116902008-2');
 </script>
 
 <script src="vendor/jquery/jquery-3.2.1.min.js"></script>
 <script src="vendor/bootstrap/js/popper.js"></script>
 <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
 <script src="vendor/select2/select2.min.js"></script>
-<script src="js/main.js"></script>
 </body>
 </body>
 </html>
