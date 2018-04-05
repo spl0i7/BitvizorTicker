@@ -47,7 +47,7 @@ service.latest().then(function(result){
 function getResults() {
     return new Promise((resolve, reject)=> {
         mysql.query({
-            sql : "select `currency` as CURRENCY, avg(sell) as SELL, avg(buy) as BUY, `country` as COUNTRY  from `price_cache` where `currency` in ('btc','eth') and `exchange` != 'LocalBitcoins' and  `country` in ('GB', 'US', 'IN', 'CA', 'JP', 'KR', 'SG', 'HK', 'MX', 'BR') group by `country`,  `currency` order by `currency`",
+            sql : "select `currency` as CURRENCY, avg(sell) as SELL, avg(buy) as BUY, `country` as COUNTRY  from `price_cache` where `currency` in ('btc','eth') and `exchange` != 'LocalBitcoins' and  `country` in ('GB', 'US', 'IN', 'CA', 'JP', 'KR', 'SG', 'HK', 'MX', 'BR') group by `country`,  `currency` order by `country`",
             timeout : 4000,
         }, (err, results, fields)=>{
             if(err) reject(err);

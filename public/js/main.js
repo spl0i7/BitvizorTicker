@@ -280,6 +280,10 @@ let avgVueInstance = new Vue({
                     }
                     response.json().then((data)=>{
                         this.gridData = data;
+                        for(key in this.gridData) {
+                            this.gridData[key].sort((a, b) => a['country'].localeCompare(b['country']));
+                        }
+
                     });
                 }
             )
