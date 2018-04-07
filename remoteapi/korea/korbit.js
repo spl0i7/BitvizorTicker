@@ -2,7 +2,7 @@ let broadcast = require('../../model');
 let request = require('request');
 let logger = require('tracer').colorConsole();
 
-const WAIT_TIME = 1000 * 30;
+const WAIT_TIME = 1000 * 60 * 3;
 const EXCHANGE = 'Korbit';
 const COUNTRY = 'KR';
 

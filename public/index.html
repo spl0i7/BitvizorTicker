@@ -132,7 +132,6 @@
 
     </div>
 </script>
-
 <script type="text/x-template" id="avg-table-template">
 
     <div class="container main-container">
@@ -162,6 +161,26 @@
 
     </div>
 </script>
+<script type="text/x-template" id="news-template">
+
+    <div class="container main-container">
+        <h2 class="tbl-title">{{title}}</h2>
+        <div class="tbl-container">
+            <div class="list-group">
+
+                <a  v-for="i in data" :href="i.link"  class="list-group-item list-group-item-action flex-column align-items-start">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">{{i.title}}</h5>
+                        <small>{{formatTime(i.isoDate)}} days ago</small>
+                    </div>
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+</script>
 
 
 
@@ -178,7 +197,6 @@
     </table-component>
 
 </div>
-
 <div id="avgtableContainer">
     <avg-table-component
             :title="'Average Bitcoin Prices'"
@@ -191,6 +209,12 @@
             :columns ="gridColumns">
     </avg-table-component>
 
+</div>
+<div id="newsContainer">
+    <news-component
+            :title="'Latest News'"
+            :data= "gridData">
+    </news-component>
 </div>
 
 <div class="footer-bottom">
@@ -234,8 +258,8 @@
 <script src="vendor/bootstrap/js/popper.js"></script>
 <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
 <script src="vendor/select2/select2.min.js"></script>
+<script src="vendor/parser/parser.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
-<script src="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
 <script src="js/main.js"></script>
 </body>

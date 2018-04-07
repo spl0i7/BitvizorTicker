@@ -295,6 +295,38 @@ let avgVueInstance = new Vue({
 
 
 
+Vue.component('news-component', {
+    template : '#news-template',
+    props : {
+        data : Array,
+        title : String
+    },
+    methods : {
+        formatTime : function (datestr) {
+            let articleDate = Date.parse(datestr);
+            let currentDate = new Date();
+            return Math.round(Math.abs((currentDate.getTime() - articleDate)/(24*60*60*1000)));
+        }
+    }
+});
+
+let newsVueInstance = new Vue({
+    el : '#newsContainer',
+    data : {
+        gridData : [],
+    },
+    mounted : function() {
+        let parser = new RSSParser();
+        parser.parseURL('https://cors-anywhere.herokuapp.com/' + 'http://news.bitvizor.com/feed/', (err, feed)=> {
+            this.gridData = feed.items;
+            this.gridData = this.gridData.slice(0, 6);
+        });
+    },
+    methods : {
+
+    }
+});
+
 //
 // let ws = new WebSocket(WS_URL);
 // ws.onopen = ()=> ws.onmessage = priceHandler ;
