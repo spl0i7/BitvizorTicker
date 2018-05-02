@@ -45,11 +45,6 @@ module.exports = {
                 currencies : ['btc']
             },
             {
-                link : 'https://www.coinslab.com',
-                name : 'Coinslab',
-                currencies : ['btc']
-            },
-            {
                 link : 'https://bitbns.com/',
                 name : 'Bitbns',
                 currencies : ['btc', 'xrp', 'neo', 'gas', 'eth', 'xlm', 'rpx', 'dbc', 'ltc', 'xmr', 'dash', 'doge', 'bch', 'sc', 'trx', 'etn', 'ont', 'zil', 'eos', 'poly']

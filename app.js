@@ -49,7 +49,7 @@ require('./remoteapi/india/pocketbits').start();
 require('./remoteapi/india/bitxoxo').start();
 //require('./remoteapi/india/localbitcoins_in').start();
 require('./remoteapi/india/bitbns').start();
-require('./remoteapi/india/coinslab').start();
+//require('./remoteapi/india/coinslab').start();
 
 
 // JP
