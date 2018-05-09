@@ -42,7 +42,7 @@ START THE HTTP FETCHERS
 require('./remoteapi/india/zebpay').start();
 require('./remoteapi/india/buyucoin').start();
 //require('./remoteapi/india/coinsecure').start();
-require('./remoteapi/india/unocoin').start();
+//require('./remoteapi/india/unocoin').start();
 require('./remoteapi/india/coinome').start();
 require('./remoteapi/india/coindelta').start();
 require('./remoteapi/india/pocketbits').start();

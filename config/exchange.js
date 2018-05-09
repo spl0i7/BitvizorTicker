@@ -15,11 +15,6 @@ module.exports = {
                     'pivx', 'dcn']
             },
             {
-                link : 'https://unocoin.com/',
-                name : 'Unocoin',
-                currencies: ['btc']
-            },
-            {
                 link : 'https://www.coinome.com',
                 name : 'Coinome',
                 currencies : ['btc', 'ltc', 'bch', 'dash', 'dgb', 'zec', 'qtum', 'btg']
