@@ -317,7 +317,7 @@ let newsVueInstance = new Vue({
     },
     mounted : function() {
         let parser = new RSSParser();
-        parser.parseURL('https://cors-anywhere.herokuapp.com/' + 'http://bitvizor.com/news/feed/', (err, feed)=> {
+        parser.parseURL('/news/feed/', (err, feed)=> {
             this.gridData = feed.items;
             this.gridData = this.gridData.slice(0, 6);
         });
