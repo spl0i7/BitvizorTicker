@@ -68,14 +68,14 @@
                 <table class="table table-borderless" >
                     <thead>
                         <tr>
-                            <td></td>
-                            <td>Exchange</td>
-                            <td>Buy</td>
-                            <td>Sell</td>
+                            <th></th>
+                            <th>Currency</th>
+                            <th>Buy</th>
+                            <th>Sell</th>
                         </tr>
                     </thead>
                     <tr v-for="c in value">
-                        <td><img :src="'/img/coins/' + c.currency + '.png'" class="coin-logo"></td><td> {{getCryptoName(c.currency)}} ({{c.currency.toUpperCase()}})</td><td>{{formatPrice(c.buy)}}</td><td>{{formatPrice(c.sell)}}</td>
+                        <td><img :src="'/img/coins/' + c.currency + '.png'" class="coin-logo"></td><td> {{getCryptoName(c.currency)}} ({{c.currency.toUpperCase()}})</td><td class="price">{{formatPrice(c.buy)}}</td><td class="price">{{formatPrice(c.sell)}}</td>
                     </tr>
                 </table>
             </div>

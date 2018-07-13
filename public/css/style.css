@@ -144,6 +144,9 @@ footer {
     list-style: none;
     width: 100%;
 }
+.price {
+    font-weight: 500;
+}
 
 @media (max-width: 768px) {
     .news, .event {
