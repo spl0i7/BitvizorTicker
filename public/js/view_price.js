@@ -91,7 +91,10 @@ let vueInstance = new Vue({
 
         },
         formatPrice: function (n) {
-            return this.lc + numeral(n).format('0,0.[00]');
+            if(n < 1) {
+                return this.lc + numeral(n).format('0,0.[00]');
+            }
+            else return this.lc + numeral(n).format('0,0');
         }
     },
 });
