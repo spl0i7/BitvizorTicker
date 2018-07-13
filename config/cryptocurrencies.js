@@ -34,5 +34,15 @@ module.exports = {
     'dcn' : 'Dentacoin',
     'zil' : 'Zilliqa',
     'zrx': '0x',
+    'eos': 'Eos',
+    'poly': 'Polybit',
+    'ont': 'Ontology',
+    'etn': 'Electroneum',
+    'trx': 'Tronix',
+    'gas': 'Gas',
+    'xlm': 'Stellar',
+    'rpx': 'Red Pulse',
+    'dbc': 'DeepBrain Chain',
+
 
 };
