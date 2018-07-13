@@ -183,11 +183,6 @@ module.exports = {
     },
     SG : {
         exchanges : [
-
-            // {
-            //     name : 'CoinHako',
-            //     currencies : ['btc', 'eth']
-            // },
             {
                 link : 'https://www.fybsg.com/',
                 name : 'Fybsg',
@@ -369,11 +364,6 @@ module.exports = {
                 link : 'https://www.mercadobitcoin.net',
                 name : 'Mercado',
                 currencies : ['btc', 'bch', 'ltc']
-            },
-            {
-                link : 'https://flowbtc.com',
-                name : 'Flowbitcoin',
-                currencies : ['btc', 'ltc']
             },
             {
                 link : 'https://bitcambio.com.br',

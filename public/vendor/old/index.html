@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Bitvizor- Cryptocurrency prices in your country</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Track cryptocurrency prices in your country and from top crypto exchanges including Bitcoin price, Ethereum price, Ripple price. Top 100 virtual currencies list and prices, Latest cryptocurrency news and more…">
+    <meta name="Keywords" content="Bitcoin price Ethereum price Btc price Eth price  Btc price in usa Btc price in uk Latest cryptocurrency news Cryptocompare">    <!--===============================================================================================-->
+    <link rel="icon" type="image/png" href="../../images/icons/favicon.ico"/>
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="../../css/main.css">
+    <link rel="stylesheet" type="text/css" href="../../css/util.css">
+    <!--===============================================================================================-->
+    <style>
+
+
+
+    </style>
+    <!--===============================================================================================-->
+</head>
+
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light">
+    <div class="container">
+        <a class="navbar-brand" href="#">
+            <img src="http://bitvizor.com/news/wp-content/uploads/2018/03/logo.png" alt="Logo">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end"  id="navbarSupportedContent">
+            <ul class="nav navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link active" href="http://bitvizor.com">Live Prices</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="http://bitvizor.com/top100">Top 100</a>
+                </li>
+                <li class="nav-item navbar-right">
+                    <a class="nav-link" href="http://bitvizor.com/news">News</a>
+                </li>
+                <li class="nav-item navbar-right">
+                    <a class="nav-link" href="http://bitvizor.com/news/blockchain-events/">Events</a>
+                </li><li class="nav-item navbar-right">
+                <a class="nav-link" href="http://bitvizor.com/merchants">Merchants</a>
+            </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<script type="text/x-template" id="table-template">
+
+    <div class="container main-container">
+        <div class="jumbotron  d-flex justify-content-center">
+            <div class="container">
+                <h1>Compare cryptocurrency prices in {{countryName}}</h1>
+
+            </div>
+        </div>
+
+        <div class="d-flex">
+            <div class="dropdown">
+
+                <select name="one" class="dropdown-select" v-model="selectedCurrency" @change="changeCoin">
+                    <option disabled value="">Select Currency</option>
+                    <option  v-for="key in currencies" :value="key">{{key}}</option>
+                </select>
+            </div>
+            <div class="dropdown">
+                <select name="two" class="dropdown-select" v-model="selectedCountry" @change="changeCountry">
+                    <option disabled value="">Select Country</option>
+                    <option  v-for="key in countries" :value="key">{{countryNames[key]}}</option>
+                </select>
+            </div>
+        </div>
+
+        <table class="tbl-container" v-if="filterCoin != 'ALL'">
+            <thead>
+            <tr>
+                <th>
+                    Amount
+                </th>
+                <th>
+                    Avg Buy Price
+                </th>
+                <th>
+                    Avg Sell Price
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td><input type="number" class="form-control col-xs-4"  value="1.0000" size="1" v-model="amount"></td>
+                <td><span>{{localCurrency}} {{formatPrice(amount * avgCoin.buy)}}</span><br/>
+                    <span v-if="localCurrency != '$'">$ {{formatPrice(amount * avgCoin.buy / usdRate)}}</span>
+                </td>
+                <td><span>{{localCurrency}} {{formatPrice(amount * avgCoin.sell)}}</span><br/>
+                    <span v-if="localCurrency != '$'">$ {{formatPrice(amount * avgCoin.sell/ usdRate)}}</span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+
+        <div class="tbl-container">
+            <table>
+                <thead>
+                <tr>
+                    <th class="text-left" v-for="key in columns"
+                        @click="sortBy(key)"
+                        :class="{ active: sortKey == key }">
+                        {{ key | capitalize }}
+                        <span :class="sortOrders[key] > 0 ? 'arrow-up' : 'arrow-down'"></span>
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr v-for="key in filteredData">
+                    <td class="text-left">{{key.exchange}} <br />
+                        <button @click="clicked(key)" class="btn btn-primary btn-orange" >Buy/Sell</button>
+                    </td>
+                    <td class="text-left">{{localCurrency}} {{formatPrice(key.buy)}} <br/>
+                        <span :class="(key['24hr_buy'] - key.buy)> 0? 'text-success' : 'text-danger'">{{ ((key['24hr_buy'] - key.buy) / key['24hr_buy']).toFixed(5) }} % </span> <br/>
+                        <span v-if="localCurrency != '$'">$ {{ formatPrice(key.buy / usdRate) }}</span>
+                    </td>
+                    <td class="text-left">{{localCurrency}} {{formatPrice(key.sell)}} <br/>
+                        <span :class="(key['24hr_sell'] - key.sell)> 0 ? 'text-success' : 'text-danger'">{{((key['24hr_sell'] - key.sell) /  key['24hr_sell']).toFixed(5) }} % </span> <br/>
+                        <span v-if="localCurrency != '$'">$ {{ formatPrice(key.sell / usdRate) }}</span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</script>
+<script type="text/x-template" id="avg-table-template">
+
+    <div class="container main-container">
+        <h2 class="tbl-title">{{title}}</h2>
+        <div class="tbl-container">
+            <table>
+                <thead>
+                <tr>
+                    <th class="text-left" v-for="key in columns">
+                        {{ key | capitalize }}
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr v-for="key in data">
+                    <td>{{key.country}} <br />
+                    </td>
+                    <td>$ {{formatPrice(key['price_buy'])}} <br/>
+                    </td>
+                    <td>$  {{formatPrice(key['price_sell'])}} <br/>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+
+    </div>
+</script>
+<script type="text/x-template" id="news-template">
+
+    <div class="container main-container">
+        <h2 class="tbl-title">{{title}}</h2>
+        <div class="tbl-container">
+            <div class="list-group">
+
+                <a  v-for="i in data" :href="i.link"  class="list-group-item list-group-item-action flex-column align-items-start">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">{{i.title}}</h5>
+                        <small>{{formatTime(i.isoDate)}} days ago</small>
+                    </div>
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+</script>
+
+
+
+<div id="tableContainer">
+    <table-component
+            :country-Name="countryName"
+            :country-Names = "countryNames"
+            :usd-rate="usdRate"
+            :local-Currency="localCurrency"
+            :countries="countries"
+            :currencies="currencies"
+            :data= "gridData"
+            :columns ="gridColumns">
+    </table-component>
+
+</div>
+<div id="avgtableContainer">
+    <avg-table-component
+            :title="'Average Bitcoin Prices'"
+            :data= "gridData.btc"
+            :columns ="gridColumns">
+    </avg-table-component>
+    <avg-table-component
+            :title="'Average Ethereum Prices'"
+            :data= "gridData.eth"
+            :columns ="gridColumns">
+    </avg-table-component>
+
+</div>
+<div id="newsContainer">
+    <news-component
+            :title="'Latest Cryptocurrency News'"
+            :data= "gridData">
+    </news-component>
+</div>
+
+<div class="footer-bottom">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-8 col-md-12">
+                <div class="copyright">
+                    <a href="https://www.facebook.com/bitvizor/ " class="fa fa-facebook"></a>
+                    <a href="https://www.reddit.com/user/Bitvizor" class="fa fa-reddit"></a>
+                    <a href="https://twitter.com/Bitvizor" class="fa fa-twitter"></a>
+                    <a href="https://t.me/bitvizortele" class="fa fa-telegram"></a>
+                </div>
+            </div>
+            <div class="col-xs-2 ">
+                <div  class="copyright">
+                    <a href="/about">About Us | </a>
+                    <a href="/contact">Contact Us</a>
+                </div>
+            </div>
+            <div class="col-xs-2">
+                <div class="copyright">
+                    <p>Copyright 2018</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-116902008-2"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-116902008-2');
+</script>
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+    (adsbygoogle = window.adsbygoogle || []).push({
+        google_ad_client: "ca-pub-7045272679361350",
+        enable_page_level_ads: true
+    });
+</script>
+
+
+<script src="../jquery/jquery-3.2.1.min.js"></script>
+<script src="../bootstrap/js/popper.js"></script>
+<script src="../bootstrap/js/bootstrap.min.js"></script>
+<script src="../select2/select2.min.js"></script>
+<script src="../parser/parser.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
+<script src="../../js/main.js"></script>
+</body>
+</body>
+</html>

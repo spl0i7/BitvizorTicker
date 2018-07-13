@@ -2,17 +2,13 @@ let mysql      = require('mysql');
 let logger = require('tracer').colorConsole();
 let connection = mysql.createConnection({
     host     : 'localhost',
-    user     : 'ketan',
+    user     : 'bitvizor',
     password : 'lolrofl@123',
-    database : 'coinscour'
+    database : 'bitvizor_pricetracker'
 });
 
 
-/*
-create table price_cache(exchange varchar(100), currency varchar (20), country varchar(5), sell bigint, buy bigint, timestamp datetime);
-create table click_stats(ip varchar(20) not null, timestamp datetime not null, exchange varchar(50) not null, currency varchar(5) not null);
-//datatypes can be improved
- */
+/* create table price_history(timestamp datetime, exchange_name varchar(50), currency varchar(5), buy int, sell int); */
 
 
 connection.connect(function(err) {

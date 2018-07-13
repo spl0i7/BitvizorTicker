@@ -8,8 +8,10 @@
   "dependencies": {
     "body-parser": "~1.18.2",
     "cookie-parser": "~1.4.3",
+    "cors": "^2.8.4",
     "debug": "~2.6.9",
-    "express": "~4.15.5",
+    "ejs": "^2.6.1",
+    "express": "^4.16.3",
     "geoip-native-lite": "^0.2.0",
     "logger": "0.0.1",
     "memory-cache": "^0.2.0",
@@ -19,6 +21,7 @@
     "oxr": "^1.1.0",
     "request": "^2.85.0",
     "serve-favicon": "~2.4.5",
+    "timed-memoize": "^2.4.2",
     "tracer": "^0.8.12"
   }
 }

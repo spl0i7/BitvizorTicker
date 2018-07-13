@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Compare cryptocurrency prices in <%= countryName %></title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/mdb.min.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
+</head>
+
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light">
+    <section class="container">
+        <a class="navbar-brand" href="#"><img class="logo" src="img/logo.png"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Live Prices </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Top 100</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">News</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Events</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Merchants</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">E-Commerce</a>
+                </li>
+            </ul>
+        </div>
+    </section>
+</nav>
+
+
+
+<div class="container">
+    <!--<div class="container flex-center flex-row ">-->
+        <!--<ul class="price-heading ">-->
+            <!--<li>Exchange</li>-->
+            <!--<li>Coin</li>-->
+            <!--<li>Buy</li>-->
+            <!--<li>Sell</li>-->
+        <!--</ul>-->
+    <!--</div>-->
+    <div class="row flex-center flex-column" id="exchangeContainer">
+
+        <div class="card " v-for="(value, propertyName) in gridData">
+            <div class="card-exchange-info col-xs-12" >
+                <img :src="'/img/exchanges/' + propertyName.toLowerCase() + '.jpg'" />
+                <h2>{{propertyName}}</h2>
+                <a :href="value[0].link" class="btn btn-rounded color-yellow btn-sm">Buy/Sell</a>
+            </div>
+            <div class="card-body col-xs-12">
+                <table class="table table-borderless" >
+                    <thead>
+                        <tr>
+                            <td></td>
+                            <td>Exchange</td>
+                            <td>Buy</td>
+                            <td>Sell</td>
+                        </tr>
+                    </thead>
+                    <tr v-for="c in value">
+                        <td><img :src="'/img/coins/' + c.currency + '.png'" class="coin-logo"></td><td> {{getCryptoName(c.currency)}} ({{c.currency.toUpperCase()}})</td><td>{{formatPrice(c.buy)}}</td><td>{{formatPrice(c.sell)}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+<footer class="page-footer font-small pt-4 mt-4">
+
+    <div class="container text-center text-md-left">
+        <div class="row">
+            <hr class="clearfix w-100 d-md-none">
+
+            <div class="col-md-4 mx-auto">
+
+                <a class="navbar-brand" href="#"><img class="logo" src="img/logo.png"></a>
+                <ul class="mt-4 list-unstyled list-inline">
+                    <li class="list-inline-item">
+                        <a class="btn-floating btn-fb mx-4">
+                            <i class="fa fa-facebook"> </i>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a class="btn-floating btn-tw mx-4">
+                            <i class="fa fa-twitter"> </i>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a class="btn-floating btn-gplus mx-4">
+                            <i class="fa fa-google-plus"> </i>
+                        </a>
+                    </li>
+                </ul>
+
+            </div>
+            <hr class="clearfix w-100 d-md-none">
+
+            <div class="col-md-4 mx-auto">
+                <ul class="list-unstyled list-inline text-center py-2">
+                    <h5>Subscribe to our Newsletter !</h5>
+                    <li class="list-inline-item">
+                        <div class="form-group">
+                            <input type="email" class="form-control">
+                        </div>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="#!" class="btn btn-danger btn-rounded">Sign up!</a>
+                    </li>
+                </ul>
+
+            </div>
+            <hr class="clearfix w-100 d-md-none">
+
+            <div class="col-md-2 mx-auto">
+
+                <ul class="list-unstyled">
+                    <li>
+                        <a href="#!">Live Prices</a>
+                    </li>
+                    <li>
+                        <a href="#!">Events</a>
+                    </li>
+                    <li>
+                        <a href="#!">Top 100</a>
+                    </li>
+                </ul>
+
+            </div>
+            <div class="col-md-2 mx-auto">
+
+                <ul class="list-unstyled">
+                    <li>
+                        <a href="#!">Merchants</a>
+                    </li>
+                    <li>
+                        <a href="#!">News</a>
+                    </li>
+                    <li>
+                        <a href="#!">E-Commerce</a>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+
+    </div>
+
+    <hr>
+
+
+
+    <div class="footer-copyright text-center py-3">© 2018 Copyright: Bitvizor.com</div>
+</footer>
+
+<% if (prices) { %>
+<script>
+    let prices = <%- JSON.stringify(prices) %>;
+    let localCurrency = "<%- localCurrency %>";
+    let cryptoNameDB = <%- JSON.stringify(cryptoNameDB) %>;
+
+</script>
+<% } %>
+
+
+<script type="text/javascript" src="/js/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="/js/popper.min.js"></script>
+<script type="text/javascript" src="/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/js/mdb.min.js"></script>
+<script type="text/javascript" src="/js/vue.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
+
+<script type="text/javascript" src="/js/view_price.js"></script>
+</body>
+
+</html>

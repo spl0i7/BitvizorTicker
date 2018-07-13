@@ -1,0 +1,51 @@
+let broadcast = require('../../../middlewares/price');
+let request = require('request');
+let logger = require('tracer').colorConsole();
+
+const WAIT_TIME = 1000 * 60 * 2;
+const EXCHANGE = 'CoinHako';
+const COUNTRY = 'SG';
+
+const urls = {
+    btc:  'https://www.coinhako.com/api/v1/price/currency/BTCSGD',
+    eth : 'https://www.coinhako.com/api/v1/price/currency/ETHSGD',
+
+};
+
+
+logger.info(`Starting ${COUNTRY}-${EXCHANGE} with refresh time ${WAIT_TIME} ms`);
+
+
+function getHttp(url, currency) {
+
+    request(
+        {
+            method: 'GET',
+            uri: url,
+            gzip: true
+        }, (err, res, body)=>{
+            if(err){ console.log (err); }
+            else {
+                try {
+                    let jsonResponse = JSON.parse(body);
+                    broadcast(COUNTRY, EXCHANGE, currency, jsonResponse['data']['sell_price'], jsonResponse['data']['buy_price']);
+                }
+                catch(error){
+                    logger.warn(`Warning : Parsing Error from COUNTRY}-${EXCHANGE}` ,error);
+
+                }
+
+            }
+        });
+}
+
+function startFetch() {
+    for(let k in urls){
+        getHttp(urls[k], k);
+        setInterval(function() { getHttp(urls[k], k) }, WAIT_TIME);
+    }
+}
+
+module.exports = {
+    start : startFetch
+};

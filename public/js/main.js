@@ -3,33 +3,6 @@
     "use strict";
 })(jQuery);
 
-function setCookie(cname, cvalue, exdays) {
-    var d = new Date();
-    d.setTime(d.getTime() + (exdays*24*60*60*1000));
-    var expires = "expires="+ d.toUTCString();
-    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-}
-
-function getCookie(cname) {
-    let name = cname + "=";
-    let decodedCookie = decodeURIComponent(document.cookie);
-    let ca = decodedCookie.split(';');
-    for(let i = 0; i <ca.length; i++) {
-        let c = ca[i];
-        while (c.charAt(0) === ' ') {
-            c = c.substring(1);
-        }
-        if (c.indexOf(name) === 0) {
-            return c.substring(name.length, c.length);
-        }
-    }
-    return "";
-}
-
-const SSE_URL = "/stream/";
-const HANDSHAKE_URL = "/handshake/";
-
-let bus = new Vue();
 
 Vue.component('table-component', {
     template : '#table-template',
@@ -50,7 +23,7 @@ Vue.component('table-component', {
         });
         return {
             amount : 1.00000,
-            filterCoin : getCookie('filterCoin')||'ALL',
+            filterCoin : 'ALL',
             sortKey: '',
             sortOrders: sortOrders,
             selectedCurrency : '',
@@ -113,16 +86,15 @@ Vue.component('table-component', {
             this.sortOrders[key] = this.sortOrders[key] * -1
         },
         changeCountry: function(){
-            bus.$emit('changeCountry', this.selectedCountry);
+
+            // change country
         },
         changeCoin : function () {
             console.log('Changed', this.selectedCurrency);
             this.filterCoin = this.selectedCurrency;
-            setCookie("filterCoin", this.selectedCurrency, 365);
         },
-        clicked : function(k) {
-          fetch(`/clicked/${k.alias}/${k.currency}`).
-              then(a=> window.location = k.link);
+        clicked : function (k) {
+            window.open(k.link,'_blank');
         }
     }
 });
@@ -136,111 +108,50 @@ let vueInstance = new Vue({
         localCurrency: '$' ,
         currencySelected : 'ALL',
         sse : null,
-        usdRate : 0.0,
         countryName : '',
         countryNames : {},
     },
     mounted : function() {
-        bus.$on('changeCountry', (key)=>{
-            fetch(`${HANDSHAKE_URL}currency/${key}`)
-                .then((res)=>{
-                    if (res.status !== 200) {
-                        console.log('Looks like there was a problem. Status Code: ' +
-                            response.status);
-                        return;
-                    }
-                    res.json().then((info)=>{
-
-                        this.countryName = info['countryName'];
-                        this.localCurrency = info['localCurrency'];
-                        this.usdRate = info['USDRate'];
-                        this.connectAPI(key);
-                    });
-                })
-                .catch((err)=> console.log('Fetch Error :-S', err));
-        });
         this.currencies.push('ALL');
-        fetch(HANDSHAKE_URL)
-            .then((response)=> {
-                    if (response.status !== 200) {
-                        console.log('Looks like there was a problem. Status Code: ' +
-                            response.status);
-                        return;
-                    }
-                    response.json().then((handshake)=>{
-                        this.countryName = handshake['countryName'];
-                        this.countries = handshake['countries'];
-                        this.countryNames = handshake['countryNames'];
-                        this.countries.sort();
-                        this.localCurrency = handshake['localCurrency'];
-                        this.usdRate = handshake['USDRate'];
-                        this.connectAPI(handshake['country']);
-                    });
-                }
-            )
-            .catch((err)=> console.log('Fetch Error :-S', err));
+        this.countryName = '';
+        this.countries = [];
+        this.countryNames = [];
+        this.countries.sort();
+        this.localCurrency = localCurrency;
+        this.populateTable();
+
     },
     methods : {
         selectCurrency : function(k) {
             this.currencySelected = k;
         },
-        connectAPI : function(k){
-            if(this.sse !== null) {
-                this.sse.close();
-            }
-            this.sse = new EventSource(SSE_URL + k);
-            this.sse.onopen = ()=> this.sse.onmessage = (e) => {
-                let data = JSON.parse(e.data);
+        populateTable : function(){
+            let data = prices;
 
-                let currentExchange = data['exchange'];
-                /*
-                *
-                *
-                * {"ZebPay":{"eth":{"buy":0,"sell":0},"btc":{"buy":0,"sell":0}}
-                * */
-                if(!currentExchange) {
-
-                    this.gridData = [];
-                    for(let exchange in data){
-                        for (let currency in data[exchange]){
-                            /* must not include 24 hr data as a currency */
-                            let flag = true;
-                            for(let i = 0; i < this.currencies.length; i++){
-                                if(this.currencies[i] === currency.toUpperCase()) {
-                                    flag = false;
-                                    break;
-                                }
-                            }
-                            if(flag) this.currencies.push(currency.toUpperCase());
-                            this.gridData.push({
-                                alias: exchange,
-                                exchange : `${exchange} (${currency.toUpperCase()})`,
-                                buy : Number.parseFloat(data[exchange][currency]['buy']),
-                                sell : Number.parseFloat(data[exchange][currency]['sell']),
-                                link : data[exchange][currency]['link'],
-                                currency : currency,
-                                '24hr_buy' : Number.parseFloat(data[exchange][currency]['24hr_buy']),
-                                '24hr_sell' : Number.parseFloat(data[exchange][currency]['24hr_sell']),
-                            })
-                        }
-                    }
-                }
-                else {
-                    for(let i = 0; i < this.gridData.length; i++) {
-                        if(this.gridData[i]['alias'] === currentExchange && this.gridData[i]['currency'] === data['currency'] ) {
-                            this.gridData[i]['buy'] = Number.parseFloat(data['price']['buy']);
-                            this.gridData[i]['sell'] = Number.parseFloat(data['price']['sell']);
+            this.gridData = [];
+            for(let exchange in data){
+                for (let currency in data[exchange]){
+                    /* must not include 24 hr data as a currency */
+                    let flag = true;
+                    for(let i = 0; i < this.currencies.length; i++){
+                        if(this.currencies[i] === currency.toUpperCase()) {
+                            flag = false;
                             break;
                         }
                     }
-
+                    if(flag) this.currencies.push(currency.toUpperCase());
+                    this.gridData.push({
+                        alias: exchange,
+                        exchange : `${exchange} (${currency.toUpperCase()})`,
+                        buy : Number.parseFloat(data[exchange][currency]['buy']),
+                        sell : Number.parseFloat(data[exchange][currency]['sell']),
+                        link : data[exchange][currency]['link'],
+                        currency : currency,
+                    })
                 }
-
             }
-
-        },
-
-    }
+        }
+    },
 });
 
 
@@ -271,23 +182,13 @@ let avgVueInstance = new Vue({
         gridData : [],
     },
     mounted : function() {
-        fetch(HANDSHAKE_URL + 'avg')
-            .then((response)=> {
-                    if (response.status !== 200) {
-                        console.log('Looks like there was a problem. Status Code: ' +
-                            response.status);
-                        return;
-                    }
-                    response.json().then((data)=>{
-                        this.gridData = data;
-                        for(key in this.gridData) {
-                            this.gridData[key].sort((a, b) => a['country'].localeCompare(b['country']));
-                        }
+        //
+        //
+        // this.gridData = data;
+        // for(key in this.gridData) {
+        //     this.gridData[key].sort((a, b) => a['country'].localeCompare(b['country']));
+        // }
 
-                    });
-                }
-            )
-            .catch((err)=> console.log('Fetch Error :-S', err));
     },
     methods : {
     }
@@ -316,27 +217,13 @@ let newsVueInstance = new Vue({
         gridData : [],
     },
     mounted : function() {
-        let parser = new RSSParser();
-        parser.parseURL('/news/feed/', (err, feed)=> {
-            this.gridData = feed.items;
-            this.gridData = this.gridData.slice(0, 6);
-        });
+        // let parser = new RSSParser();
+        // parser.parseURL('/news/feed/', (err, feed)=> {
+        //     this.gridData = feed.items;
+        //     this.gridData = this.gridData.slice(0, 6);
+        // });
     },
     methods : {
 
     }
 });
-
-//
-// let ws = new WebSocket(WS_URL);
-// ws.onopen = ()=> ws.onmessage = priceHandler ;
-//
-// function priceHandler(e) {
-//     let data = JSON.parse(e.data);
-//     let currentExchange = COIN_MAP[data['exchange']];
-//     let children = $(currentExchange).children();
-//     $(children[1]).text(CURRENCY + ' ' + data['price']['buy']);
-//     $(children[2]).text(CURRENCY + ' ' + data['price']['sell']);
-//     $(children[3]).text(new Date().toLocaleTimeString());
-// }
-

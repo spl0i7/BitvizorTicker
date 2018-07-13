@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include('partials/header') %>
+
+<body>
+
+<%- include('partials/navbar') %>
+
+
+<script type="text/x-template" id="table-template">
+
+    <div class="container main-container">
+        <div class="jumbotron  d-flex justify-content-center">
+            <div class="container">
+                <h1>Compare cryptocurrency prices in <%= countryName %></h1>
+
+            </div>
+        </div>
+
+        <div class="d-flex">
+            <div class="dropdown">
+
+                <select name="one" class="dropdown-select" v-model="selectedCurrency" @change="changeCoin">
+                    <option disabled value="">Select Currency</option>
+                    <option  v-for="key in currencies" :value="key">{{key}}</option>
+                </select>
+            </div>
+            <div class="dropdown">
+                <select name="two" class="dropdown-select" v-model="selectedCountry" @change="changeCountry">
+                    <option disabled value="">Select Country</option>
+                    <option  v-for="key in countries" :value="key">{{countryNames[key]}}</option>
+                </select>
+            </div>
+        </div>
+
+        <table class="tbl-container" v-if="filterCoin != 'ALL'">
+            <thead>
+            <tr>
+                <th>
+                    Amount
+                </th>
+                <th>
+                    Avg Buy Price
+                </th>
+                <th>
+                    Avg Sell Price
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td><input type="number" class="form-control col-xs-4"  value="1.0000" size="1" v-model="amount"></td>
+                <td><span>{{localCurrency}} {{formatPrice(amount * avgCoin.buy)}}</span><br/>
+                </td>
+                <td><span>{{localCurrency}} {{formatPrice(amount * avgCoin.sell)}}</span><br/>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+
+        <div class="tbl-container">
+            <table>
+                <thead>
+                <tr>
+                    <th class="text-left" v-for="key in columns"
+                        @click="sortBy(key)"
+                        :class="{ active: sortKey == key }">
+                        {{ key | capitalize }}
+                        <span :class="sortOrders[key] > 0 ? 'arrow-up' : 'arrow-down'"></span>
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr v-for="key in filteredData">
+                    <td class="text-left">{{key.exchange}} <br />
+                        <button @click="clicked(key)" class="btn btn-primary btn-orange" >Buy/Sell</button>
+                    </td>
+                    <td class="text-left">{{localCurrency}} {{formatPrice(key.buy)}} <br/>
+                    </td>
+                    <td class="text-left">{{localCurrency}} {{formatPrice(key.sell)}} <br/>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</script>
+
+<script type="text/x-template" id="avg-table-template">
+
+    <div class="container main-container">
+        <h2 class="tbl-title">{{title}}</h2>
+        <div class="tbl-container">
+            <table>
+                <thead>
+                <tr>
+                    <th class="text-left" v-for="key in columns">
+                        {{ key | capitalize }}
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr v-for="key in data">
+                    <td>{{key.country}} <br />
+                    </td>
+                    <td>$ {{formatPrice(key['price_buy'])}} <br/>
+                    </td>
+                    <td>$  {{formatPrice(key['price_sell'])}} <br/>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+
+    </div>
+</script>
+
+
+<script type="text/x-template" id="news-template">
+
+    <div class="container main-container">
+        <h2 class="tbl-title">{{title}}</h2>
+        <div class="tbl-container">
+            <div class="list-group">
+
+                <a  v-for="i in data" :href="i.link"  class="list-group-item list-group-item-action flex-column align-items-start">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">{{i.title}}</h5>
+                        <small>{{formatTime(i.isoDate)}} days ago</small>
+                    </div>
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+</script>
+
+
+
+<div id="tableContainer">
+    <table-component
+            :country-Name="countryName"
+            :country-Names = "countryNames"
+            :usd-rate="usdRate"
+            :local-Currency="localCurrency"
+            :countries="countries"
+            :currencies="currencies"
+            :data= "gridData"
+            :columns ="gridColumns">
+    </table-component>
+
+</div>
+<div id="avgtableContainer">
+    <avg-table-component
+            :title="'Average Bitcoin Prices'"
+            :data= "gridData.btc"
+            :columns ="gridColumns">
+    </avg-table-component>
+    <avg-table-component
+            :title="'Average Ethereum Prices'"
+            :data= "gridData.eth"
+            :columns ="gridColumns">
+    </avg-table-component>
+
+</div>
+<div id="newsContainer">
+    <news-component
+            :title="'Latest Cryptocurrency News'"
+            :data= "gridData">
+    </news-component>
+</div>
+
+<%- include('partials/footer') %>
+
+
+
+
+<% if (prices) { %>
+<script>
+    let prices = <%- JSON.stringify(prices) %>;
+    let localCurrency = "<%- localCurrency %>";
+</script>
+<% } %>
+
+<%- include('partials/scripts') %>
+
+<script src="/js/main.js"></script>
+
+</body>
+</body>
+</html>

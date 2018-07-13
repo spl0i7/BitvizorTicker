@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include('partials/header') %>
+
+<body>
+
+<%- include('partials/navbar') %>
+
+
+<script type="text/x-template" id="table-template">
+
+    <div class="container main-container">
+        <div class="jumbotron  d-flex justify-content-center">
+            <div class="container">
+                <h1>Top 100 cryptocurrencies</h1>
+
+            </div>
+        </div>
+        <div class="tbl-container">
+            <table>
+                <thead>
+                <tr>
+                    <th class="text-left" v-for="key in columns">
+                        {{ key | capitalize }}
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr v-for="key in data">
+                    <td>{{key.name}} ({{key.symbol}}) <br />
+                        <span :class="(key['percent_change_24h'])> 0? 'text-success' : 'text-danger'">{{key['percent_change_24h']}} % </span>
+                    </td>
+                    <td>$ {{formatPrice(key.price_usd)}} <br/>
+                    </td>
+                    <td>$  {{formatVol(key['24h_volume_usd'])}} <br/>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+
+    </div>
+</script>
+<div id="tableContainer">
+    <table-component
+            :data= "gridData"
+            :columns ="gridColumns">
+    </table-component>
+
+</div>
+<div class="d-flex justify-content-center container">
+    <div class="ct-chart ct-perfect-fourth col-md-6">
+
+    </div>
+</div>
+
+<%- include('partials/footer') %>
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<%- include('partials/scripts') %>
+
+
+
+<script src="/js/market.js"></script>
+</body>
+</body>
+</html>
