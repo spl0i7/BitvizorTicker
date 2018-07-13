@@ -26,7 +26,7 @@ function getHttp(url, currency) {
             else {
                 try {
                     let jsonResponse = JSON.parse(body);
-                    broadcast(COUNTRY, EXCHANGE, currency, jsonResponse['vendapor'], jsonResponse['comprepor']);
+                    broadcast(COUNTRY, EXCHANGE, currency, Number.parseInt(jsonResponse['vendapor']), Number.parseInt(jsonResponse['comprepor']));
                 }
                 catch(error){
                     logger.warn(`Warning : Parsing Error from ${COUNTRY}-${EXCHANGE}` ,error);
